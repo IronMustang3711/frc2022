@@ -11,7 +11,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class ChassisSubsystem extends SubsystemBase {
+public class ChassisSubsystem extends RobotSubsystem {
   WPI_TalonSRX leftFront = new WPI_TalonSRX(3);
   WPI_TalonSRX leftRear = new WPI_TalonSRX(1);
   WPI_TalonSRX rightFront = new WPI_TalonSRX(5);
@@ -20,10 +20,10 @@ public class ChassisSubsystem extends SubsystemBase {
 
   public ChassisSubsystem() {
 
-    addChild("leftFront", leftFront);
-    addChild("leftRear", leftRear);
-    addChild("rightFront", rightFront);
-    addChild("rightRear", rightRear);
+    addTalon("leftFront", leftFront);
+    addTalon("leftRear", leftRear);
+    addTalon("rightFront", rightFront);
+    addTalon("rightRear", rightRear);
 
     Stream.of(leftFront, leftRear, rightFront, rightRear).forEach(WPI_TalonSRX::configFactoryDefault);
     
