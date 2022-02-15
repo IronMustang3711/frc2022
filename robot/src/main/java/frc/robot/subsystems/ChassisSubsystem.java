@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ChassisSubsystem extends RobotSubsystem {
@@ -17,31 +18,38 @@ public class ChassisSubsystem extends RobotSubsystem {
   WPI_TalonSRX rightFront = new WPI_TalonSRX(5);
   WPI_TalonSRX rightRear = new WPI_TalonSRX(12);
 
+  DifferentialDrive drive; 
 
   public ChassisSubsystem() {
 
     addTalon("leftFront", leftFront);
-    addTalon("leftRear", leftRear);
+   // addTalon("leftRear", leftRear);
     addTalon("rightFront", rightFront);
-    addTalon("rightRear", rightRear);
+   // addTalon("rightRear", rightRear);
 
     Stream.of(leftFront, leftRear, rightFront, rightRear).forEach(WPI_TalonSRX::configFactoryDefault);
     
-    leftRear.follow(leftFront);
-    rightRear.follow(rightFront);
-
-    rightFront.setInverted(true);
+    rightFront.setInverted(false);
     leftFront.setInverted(true);
 
     leftRear.setInverted(InvertType.FollowMaster);
-   // rightRear.setInverted(InvertType.FollowMaster);
-    rightRear.setInverted(true);
+    rightRear.setInverted(InvertType.FollowMaster);
     
     rightFront.setSensorPhase(false);
     rightRear.setSensorPhase(true);
 
+    drive = new DifferentialDrive(leftFront,rightFront);
+    drive.setMaxOutput(0.5);
+
+    leftRear.follow(leftFront);
+    rightRear.follow(rightFront);
   }
 
+  public void drive(double fwd,double rotate){
+
+    drive.arcadeDrive(fwd, rotate);
+
+  }
   @Override
   public void periodic() {
    
