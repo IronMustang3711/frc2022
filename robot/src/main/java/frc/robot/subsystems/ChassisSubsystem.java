@@ -31,12 +31,13 @@ public class ChassisSubsystem extends RobotSubsystem {
     rightRear.follow(rightFront);
 
     rightFront.setInverted(true);
-    rightRear.setInverted(false);
+    leftFront.setInverted(true);
 
     leftRear.setInverted(InvertType.FollowMaster);
-    rightRear.setInverted(InvertType.FollowMaster);
-
-    rightFront.setSensorPhase(true);
+   // rightRear.setInverted(InvertType.FollowMaster);
+    rightRear.setInverted(true);
+    
+    rightFront.setSensorPhase(false);
     rightRear.setSensorPhase(true);
 
   }

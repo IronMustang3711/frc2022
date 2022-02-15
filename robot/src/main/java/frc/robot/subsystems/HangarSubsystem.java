@@ -15,6 +15,14 @@ public class HangarSubsystem extends RobotSubsystem {
     addTalon("arm", arm);
     addTalon("hook", hook);
     addTalon("winch", winch);
+
+    arm.setInverted(true);
+    winch.setInverted(true);
+    hook.setInverted(false);
+
+    arm.setSensorPhase(false);
+    winch.setSensorPhase(false);
+    hook.setSensorPhase(true);
   }
 
   @Override

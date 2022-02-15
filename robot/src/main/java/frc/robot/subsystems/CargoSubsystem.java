@@ -15,6 +15,14 @@ public class CargoSubsystem extends RobotSubsystem {
     addTalon("feedworks", feedworks);
     addTalon("intake", intake);
     addTalon("shooter", shooter);
+
+    shooter.setInverted(true);
+    intake.setInverted(true);
+    feedworks.setInverted(false);
+
+    shooter.setSensorPhase(false);
+    intake.setSensorPhase(true);
+    feedworks.setSensorPhase(true);
   }
 
   @Override
