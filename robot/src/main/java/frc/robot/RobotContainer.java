@@ -31,7 +31,7 @@ public class RobotContainer {
 
   final Joystick stick = new Joystick(0);
 
-  DriveWithJoystick drive_cmd = new DriveWithJoystick(stick, chassis);
+  final DriveWithJoystick drive_cmd = new DriveWithJoystick(stick, chassis);
 
 
 
