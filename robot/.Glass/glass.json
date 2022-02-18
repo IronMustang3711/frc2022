@@ -1,0 +1,38 @@
+{
+  "NetworkTables": {
+    "LiveWindow": {
+      "HangarSubsystem": {
+        "arm(4)": {
+          "open": true
+        },
+        "open": true
+      },
+      "open": true
+    },
+    "SmartDashboard": {
+      "open": true
+    },
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/LiveWindow/CargoSubsystem/feedworks(6)": "Motor Controller",
+      "/LiveWindow/CargoSubsystem/intake(2)": "Motor Controller",
+      "/LiveWindow/CargoSubsystem/shooter(27)": "Motor Controller",
+      "/LiveWindow/HangarSubsystem/arm(4)": "Motor Controller",
+      "/LiveWindow/HangarSubsystem/hook(15)": "Motor Controller",
+      "/LiveWindow/HangarSubsystem/winch(10)": "Motor Controller",
+      "/LiveWindow/Ungrouped/DifferentialDrive[1]": "DifferentialDrive",
+      "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
+      "/LiveWindow/Ungrouped/Talon SRX [12]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon SRX [1]": "Motor Controller",
+      "/SmartDashboard/drive command": "Command",
+      "/SmartDashboard/hangar command": "Command"
+    }
+  },
+  "NetworkTables Settings": {
+    "mode": "Client",
+    "serverTeam": "3711"
+  },
+  "NetworkTables View": {
+    "visible": false
+  }
+}
