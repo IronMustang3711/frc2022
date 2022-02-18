@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.HangarCommand;
+import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.RunFeedworks;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.RunShooter;
@@ -72,6 +73,9 @@ HangarTelemetry hangarTelemetry = new HangarTelemetry(hangar);
     new JoystickButton(stick, 3).toggleWhenPressed(new RunIntake(cargo));
     new JoystickButton(stick, 2).whileHeld(new RunFeedworks(cargo));
 
+    //FIXME:
+    //new JoystickButton(stick, 4).whenPressed(new IntakeCommand(cargo));
+   // new JoystickButton(stick, 4).whenPressed(IntakeCommand.autoFeed(cargo));
   }
 
   /**

@@ -21,11 +21,13 @@ public class RobotSubsystem extends SubsystemBase {
 
   public RobotSubsystem() {
     tab = Shuffleboard.getTab(getName());
+    tab.add(this);
   }
 
 
   protected void addTalon(String name, WPI_TalonSRX talon) {
     addChild(name + '(' + talon.getDeviceID() + ')', talon);
     talons.add(talon);
+    tab.add(talon);
   }
 }
