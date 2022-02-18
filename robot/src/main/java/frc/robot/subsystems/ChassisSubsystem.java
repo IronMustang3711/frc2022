@@ -10,15 +10,14 @@ import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ChassisSubsystem extends RobotSubsystem {
-  WPI_TalonSRX leftFront = new WPI_TalonSRX(3);
-  WPI_TalonSRX leftRear = new WPI_TalonSRX(1);
-  WPI_TalonSRX rightFront = new WPI_TalonSRX(5);
-  WPI_TalonSRX rightRear = new WPI_TalonSRX(12);
+  final WPI_TalonSRX leftFront = new WPI_TalonSRX(3);
+  final WPI_TalonSRX leftRear = new WPI_TalonSRX(1);
+  final WPI_TalonSRX rightFront = new WPI_TalonSRX(5);
+  final WPI_TalonSRX rightRear = new WPI_TalonSRX(12);
 
-  DifferentialDrive drive; 
+  final DifferentialDrive drive;
 
   public ChassisSubsystem() {
 

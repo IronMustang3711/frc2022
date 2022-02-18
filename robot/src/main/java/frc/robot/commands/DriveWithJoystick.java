@@ -10,8 +10,8 @@ import frc.robot.subsystems.ChassisSubsystem;
 
 public class DriveWithJoystick extends CommandBase {
 
-Joystick stick;
-ChassisSubsystem chassis;
+final Joystick stick;
+final ChassisSubsystem chassis;
 
   public DriveWithJoystick(Joystick stick, ChassisSubsystem chassis) {
   this.stick = stick;
