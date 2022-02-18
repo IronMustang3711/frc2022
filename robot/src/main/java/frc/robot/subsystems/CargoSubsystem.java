@@ -5,11 +5,16 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class CargoSubsystem extends RobotSubsystem {
  public WPI_TalonSRX feedworks = new WPI_TalonSRX(6);
   public WPI_TalonSRX intake = new WPI_TalonSRX(2);
   public WPI_TalonSRX shooter = new WPI_TalonSRX(27);
+
+  private DigitalInput upperPhotoeye = new DigitalInput(0);
+  DigitalInput lowerPhotoeye = new DigitalInput(1);
 
   public CargoSubsystem() {
     addTalon("feedworks", feedworks);
@@ -25,6 +30,16 @@ public class CargoSubsystem extends RobotSubsystem {
     feedworks.setSensorPhase(true);
 
     intake.configOpenloopRamp(0.0);
+
+  
+    addChild("upperPhotoeye", upperPhotoeye);
+    addChild("lowerPhotoeye", lowerPhotoeye);
+ 
+    
+
+    SmartDashboard.putData( upperPhotoeye);
+    SmartDashboard.putData(lowerPhotoeye);
+
   }
 
   @Override
