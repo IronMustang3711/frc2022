@@ -38,7 +38,7 @@ public class ChassisSubsystem extends RobotSubsystem {
     rightRear.setSensorPhase(true);
 
     drive = new DifferentialDrive(leftFront,rightFront);
-    drive.setMaxOutput(0.5);
+    drive.setMaxOutput(1.0);
 
     leftRear.follow(leftFront);
     rightRear.follow(rightFront);
