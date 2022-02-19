@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.Faults;
 import com.ctre.phoenix.motorcontrol.StickyFaults;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class TalonFaultsReporter implements Runnable {
     talon.getStickyFaults(stickyFaults);
     if (stickyFaults.hasAnyFault())
       DriverStation.reportError(
-        "(" + talon.getDescription() + ") sticky faults!->" + stickyFaultsString(stickyFaults),
+        "(" + TalonUtil.getName(talon) + ") sticky faults!->" + stickyFaultsString(stickyFaults),
         false);
 
   }
@@ -65,7 +66,7 @@ public class TalonFaultsReporter implements Runnable {
   public void run() {
     talon.getFaults(faults);
     if (faults.hasAnyFault())
-      DriverStation.reportError("(" + talon.getDescription() + ") faults->" + faultsString(faults), false);
+      DriverStation.reportError("(" + TalonUtil.getName(talon) + ") faults->" + faultsString(faults), false);
 
   }
 

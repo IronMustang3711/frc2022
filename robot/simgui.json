@@ -1,0 +1,39 @@
+{
+  "NTProvider": {
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/LiveWindow/CargoSubsystem/feedworks(6)": "Motor Controller",
+      "/LiveWindow/CargoSubsystem/intake(2)": "Motor Controller",
+      "/LiveWindow/CargoSubsystem/lowerPhotoeye": "Digital Input",
+      "/LiveWindow/CargoSubsystem/shooter(27)": "Motor Controller",
+      "/LiveWindow/CargoSubsystem/upperPhotoeye": "Digital Input",
+      "/LiveWindow/ChassisSubsystem": "Subsystem",
+      "/LiveWindow/HangarSubsystem/arm(4)": "Motor Controller",
+      "/LiveWindow/HangarSubsystem/hook(15)": "Motor Controller",
+      "/LiveWindow/HangarSubsystem/winch(10)": "Motor Controller",
+      "/LiveWindow/Ungrouped/DifferentialDrive[1]": "DifferentialDrive",
+      "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
+      "/LiveWindow/Ungrouped/Talon SRX [12]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon SRX [1]": "Motor Controller",
+      "/Shuffleboard/CargoSubsystem/CargoSubsystem": "Subsystem",
+      "/Shuffleboard/CargoSubsystem/autofeed": "Command",
+      "/Shuffleboard/CargoSubsystem/feedworks(6)": "Motor Controller",
+      "/Shuffleboard/CargoSubsystem/feedworksCmd": "Command",
+      "/Shuffleboard/CargoSubsystem/intake(2)": "Motor Controller",
+      "/Shuffleboard/CargoSubsystem/intakeCmd": "Command",
+      "/Shuffleboard/CargoSubsystem/shoot seq": "Command",
+      "/Shuffleboard/CargoSubsystem/shooter(27)": "Motor Controller",
+      "/Shuffleboard/ChassisSubsystem/ChassisSubsystem": "Subsystem",
+      "/Shuffleboard/ChassisSubsystem/leftFront(3)": "Motor Controller",
+      "/Shuffleboard/ChassisSubsystem/rightFront(5)": "Motor Controller",
+      "/Shuffleboard/HangarSubsystem/HangarSubsystem": "Subsystem",
+      "/Shuffleboard/HangarSubsystem/arm(4)": "Motor Controller",
+      "/Shuffleboard/HangarSubsystem/hook(15)": "Motor Controller",
+      "/Shuffleboard/HangarSubsystem/winch(10)": "Motor Controller",
+      "/SmartDashboard/drive command": "Command",
+      "/SmartDashboard/hangar command": "Command",
+      "/SmartDashboard/lowerPhotoeye": "Digital Input",
+      "/SmartDashboard/upperPhotoeye": "Digital Input"
+    }
+  }
+}

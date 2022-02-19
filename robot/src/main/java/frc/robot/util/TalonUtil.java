@@ -30,14 +30,14 @@ public class TalonUtil {
     throw new RuntimeException(err.name());
   }
 
-  static class BasicTalonTelemetry implements Runnable {
+ public static class BasicTalonTelemetry implements Runnable {
     private final NetworkTableEntry outputPercent;
     private final NetworkTableEntry outputVoltage;
     private final NetworkTableEntry outputCurrent;
     private final NetworkTableEntry inputCurrent;
     private final WPI_TalonSRX talon;
 
-    BasicTalonTelemetry(WPI_TalonSRX talon, ShuffleboardContainer container) {
+    public BasicTalonTelemetry(WPI_TalonSRX talon, ShuffleboardContainer container) {
       this.talon = talon;
       outputPercent = container.add("outputPercent", 0.0).getEntry();
       outputVoltage = container.add("outputVoltage", 0.0).getEntry();
@@ -54,12 +54,12 @@ public class TalonUtil {
     }
   }
 
-  static class EncoderTelemetry implements Runnable {
+ public static class EncoderTelemetry implements Runnable {
     final WPI_TalonSRX talon;
     final NetworkTableEntry position;
     final NetworkTableEntry velocity;
 
-    EncoderTelemetry(WPI_TalonSRX talon, ShuffleboardContainer container) {
+    public EncoderTelemetry(WPI_TalonSRX talon, ShuffleboardContainer container) {
       this.talon = talon;
       position = container.add("position", 0.0).getEntry();
       velocity = container.add("velocity", 0.0).getEntry();
@@ -72,14 +72,14 @@ public class TalonUtil {
     }
   }
 
-  static class ClosedLoopTelemetry implements Runnable {
+  public static class ClosedLoopTelemetry implements Runnable {
     final WPI_TalonSRX talon;
     final NetworkTableEntry target;
     final NetworkTableEntry error;
     final NetworkTableEntry errorDerivative;
     final NetworkTableEntry iAccum;
 
-    ClosedLoopTelemetry(WPI_TalonSRX talon, ShuffleboardContainer container) {
+    public ClosedLoopTelemetry(WPI_TalonSRX talon, ShuffleboardContainer container) {
       this.talon = talon;
       target = container.add("target", 0.0).getEntry();//table.getEntry("target");
       error = container.add("error", 0.0).getEntry();

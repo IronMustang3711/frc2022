@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import java.util.List;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
@@ -12,14 +14,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.HangarCommand;
-import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.RunFeedworks;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.RunShooter;
+import frc.robot.commands.ShuffleboardCommandsTab;
 import frc.robot.subsystems.CargoSubsystem;
 import frc.robot.subsystems.ChassisSubsystem;
 import frc.robot.subsystems.HangarSubsystem;
-import frc.robot.subsystems.HangarTelemetry;
+import frc.robot.subsystems.RobotSubsystem;
+import frc.robot.util.TalonFaultsReporter;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -35,6 +38,8 @@ public class RobotContainer {
   CargoSubsystem cargo = new CargoSubsystem();
   HangarSubsystem hangar = new HangarSubsystem();
 
+  public final List<RobotSubsystem> subsystems = List.of(chassis,cargo,hangar);
+
   private final ExampleCommand m_autoCommand = new ExampleCommand(chassis);
 
   final Joystick stick = new Joystick(0);
@@ -46,7 +51,7 @@ public class RobotContainer {
 
 
   PowerDistribution pdp = new PowerDistribution();
-HangarTelemetry hangarTelemetry = new HangarTelemetry(hangar);
+//HangarTelemetry hangarTelemetry = new HangarTelemetry(hangar);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
@@ -60,6 +65,14 @@ HangarTelemetry hangarTelemetry = new HangarTelemetry(hangar);
 
 
     SmartDashboard.putData(pdp);
+   
+    for(var sys: subsystems){
+      for(var talon : sys.talons){
+        TalonFaultsReporter.instrument(talon);
+      }
+    }
+
+    ShuffleboardCommandsTab.create(this);
   }
 
   /**

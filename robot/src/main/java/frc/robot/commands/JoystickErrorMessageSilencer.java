@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -9,6 +9,11 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InaccessibleObjectException;
 
 public class JoystickErrorMessageSilencer extends CommandBase {
+
+  @Override
+  public boolean runsWhenDisabled() {
+      return true;
+  }
 
   @Override
   public void initialize() {
