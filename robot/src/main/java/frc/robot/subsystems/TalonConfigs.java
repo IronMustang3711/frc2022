@@ -20,10 +20,12 @@ public class TalonConfigs {
         void configure(WPI_TalonSRX talon);
     }
 
+    // MAX_ARM = 918 V == 100
     static class HangarConfigs {
         static void configureArm(WPI_TalonSRX talon) {
-            TalonSRXConfiguration config = new TalonSRXConfiguration();
 
+            TalonSRXConfiguration config = new TalonSRXConfiguration();
+            /******** CURRENT LIMIT (ENABLED BELOW) **********/
             config.peakCurrentLimit = 15;
             config.peakCurrentDuration = 10;
             config.continuousCurrentLimit = 10;
@@ -34,10 +36,10 @@ public class TalonConfigs {
 
             config.forwardLimitSwitchSource = LimitSwitchSource.Deactivated;
             config.reverseLimitSwitchSource = LimitSwitchSource.Deactivated;
-
+            /****************** RAMPING *********************/
             config.openloopRamp = 1.0;
             config.closedloopRamp = 1.0;
-
+            /******************* OUTPUT LIMITS **************/
             config.peakOutputForward = 0.5;
             config.peakOutputReverse = -0.5;
 
@@ -50,13 +52,16 @@ public class TalonConfigs {
             config.voltageMeasurementFilter = 32; // default = 32
             config.velocityMeasurementPeriod = SensorVelocityMeasPeriod.Period_100Ms; // default = 100ms
             config.velocityMeasurementWindow = 64;// default = 64;
-            config.forwardSoftLimitThreshold = 10000;
+
+
+            /************LIMITS *******************/
+            config.forwardSoftLimitThreshold = 950;
             config.forwardSoftLimitEnable = false;
-            config.reverseSoftLimitThreshold = -1000;
+            config.reverseSoftLimitThreshold = -100;
             config.reverseSoftLimitEnable = false;
 
             config.motionCruiseVelocity = 100;
-            config.motionAcceleration = 100;
+            config.motionAcceleration = 50;
             config.motionCurveStrength = 4;
 
             config.clearPositionOnLimitF = false;
@@ -68,30 +73,30 @@ public class TalonConfigs {
             config.motionProfileTrajectoryPeriod = 1;
             config.trajectoryInterpolationEnable = true;
 
-            config.slot0.kP = 0.001;
+            //FANCY POSITION
+            config.slot0.kP = 1.0;
             config.slot0.kI = 0.0;
             config.slot0.kD = 0.0;
+            config.slot0.kF = 1.0;
             config.slot0.integralZone = 10;
             config.slot0.allowableClosedloopError = 10;
             config.slot0.maxIntegralAccumulator = 100;
             config.slot0.closedLoopPeakOutput = 1.0;
             config.slot0.closedLoopPeriod = 1;
 
-            /*
-             * TODO: verify that this is still true
-             * things not handled with config:
-             * []Current Limit Enable (though the thresholds are configs)
-             * []Voltage Compensation Enable (though the nominal voltage is a config)
-             * Control Mode and Target/Output demand (percent, position, velocity, etc.)
-             * []Invert direction and sensor phase
-             * []Closed-loop slot selection [0,3] for primary and aux PID loops.
-             * Neutral mode override (convenient to temporarily override configs)
-             * Limit switch override (convenient to temporarily override configs)
-             * Soft Limit override (convenient to temporarily override configs)
-             * Status Frame Periods
-             */
+            //CURRENT
+            config.slot1.kP = 1.0;
+            config.slot1.kI = 0.0;
+            config.slot1.kD = 0.0;
+            config.slot1.kF = 1.0;
+            config.slot1.integralZone = 10;
+            config.slot1.allowableClosedloopError = 10;
+            config.slot1.maxIntegralAccumulator = 100;
+            config.slot1.closedLoopPeakOutput = 1.0;
+            config.slot1.closedLoopPeriod = 1;
 
-            TalonUtil.check(talon.configAllSettings(config, 50));
+
+            TalonUtil.requireOK(talon.configAllSettings(config, 50));
 
             talon.enableCurrentLimit(true);
             talon.enableVoltageCompensation(true);
@@ -106,6 +111,7 @@ public class TalonConfigs {
 
             TalonSRXConfiguration config = new TalonSRXConfiguration();
 
+            /******** CURRENT LIMIT (ENABLED BELOW) **********/
             config.peakCurrentLimit = 20;
             config.peakCurrentDuration = 10;
             config.continuousCurrentLimit = 15;
@@ -116,10 +122,12 @@ public class TalonConfigs {
 
             config.forwardLimitSwitchSource = LimitSwitchSource.Deactivated;
             config.reverseLimitSwitchSource = LimitSwitchSource.Deactivated;
-
+            /********** RAMPING ****************/
             config.openloopRamp = 1.0;
             config.closedloopRamp = 1.0;
 
+
+            /***********OUTPUT LIMITS */
             config.peakOutputForward = 1.0;
             config.peakOutputReverse = -1.0;
 
@@ -132,13 +140,14 @@ public class TalonConfigs {
             config.voltageMeasurementFilter = 32; // default = 32
             config.velocityMeasurementPeriod = SensorVelocityMeasPeriod.Period_100Ms; // default = 100ms
             config.velocityMeasurementWindow = 64;// default = 64;
+            /********* SOFT LIMITS **********/
             config.forwardSoftLimitThreshold = 100;
             config.forwardSoftLimitEnable = false;
-            config.reverseSoftLimitThreshold = -1700;
+            config.reverseSoftLimitThreshold = -45530;
             config.reverseSoftLimitEnable = false;
 
             config.motionCruiseVelocity = 100;
-            config.motionAcceleration = 100;
+            config.motionAcceleration = 50;
             config.motionCurveStrength = 4;
 
             config.clearPositionOnLimitF = false;
@@ -150,30 +159,29 @@ public class TalonConfigs {
             config.motionProfileTrajectoryPeriod = 1;
             config.trajectoryInterpolationEnable = true;
 
-            config.slot0.kP = 0.001;
+            // FANCY POSITION SLOT
+            config.slot0.kP = 2.0;
             config.slot0.kI = 0.0;
             config.slot0.kD = 0.0;
+            config.slot1.kF = 10.0;
             config.slot0.integralZone = 10;
             config.slot0.allowableClosedloopError = 10;
             config.slot0.maxIntegralAccumulator = 100;
             config.slot0.closedLoopPeakOutput = 1.0;
             config.slot0.closedLoopPeriod = 1;
 
-            /*
-             * TODO: verify that this is still true
-             * things not handled with config:
-             * []Current Limit Enable (though the thresholds are configs)
-             * []Voltage Compensation Enable (though the nominal voltage is a config)
-             * Control Mode and Target/Output demand (percent, position, velocity, etc.)
-             * []Invert direction and sensor phase
-             * []Closed-loop slot selection [0,3] for primary and aux PID loops.
-             * Neutral mode override (convenient to temporarily override configs)
-             * Limit switch override (convenient to temporarily override configs)
-             * Soft Limit override (convenient to temporarily override configs)
-             * Status Frame Periods
-             */
+            // CURRENT
+            config.slot1.kP = 0;
+            config.slot1.kI = 0.0;
+            config.slot1.kD = 0.0;
+            config.slot1.kF = 1.0;
+            config.slot1.integralZone = 10;
+            config.slot1.allowableClosedloopError = 10;
+            config.slot1.maxIntegralAccumulator = 100;
+            config.slot1.closedLoopPeakOutput = 1.0;
+            config.slot1.closedLoopPeriod = 1;
 
-            TalonUtil.check(talon.configAllSettings(config, 50));
+            TalonUtil.requireOK(talon.configAllSettings(config, 50));
 
             talon.setInverted(false);
             talon.setSensorPhase(false);
@@ -187,7 +195,7 @@ public class TalonConfigs {
         static void configureHook(WPI_TalonSRX talon) {
 
             TalonSRXConfiguration config = new TalonSRXConfiguration();
-
+            /******** CURRENT LIMIT (ENABLED BELOW) **********/
             config.peakCurrentLimit = 15;
             config.peakCurrentDuration = 10;
             config.continuousCurrentLimit = 10;
@@ -201,7 +209,7 @@ public class TalonConfigs {
 
             config.openloopRamp = 0.0;
             config.closedloopRamp = 0.0;
-
+            /****** OUTPUT LIMITS **********/
             config.peakOutputForward = 0.3;
             config.peakOutputReverse = -0.3;
 
@@ -214,13 +222,15 @@ public class TalonConfigs {
             config.voltageMeasurementFilter = 32; // default = 32
             config.velocityMeasurementPeriod = SensorVelocityMeasPeriod.Period_100Ms; // default = 100ms
             config.velocityMeasurementWindow = 64;// default = 64;
-            config.forwardSoftLimitThreshold = 10000;
+            
+            
+            config.forwardSoftLimitThreshold = 100;
             config.forwardSoftLimitEnable = false;
             config.reverseSoftLimitThreshold = -1000;
             config.reverseSoftLimitEnable = false;
 
-            config.motionCruiseVelocity = 100;
-            config.motionAcceleration = 100;
+            config.motionCruiseVelocity = 150;
+            config.motionAcceleration = 50;
             config.motionCurveStrength = 4;
 
             config.clearPositionOnLimitF = false;
@@ -232,15 +242,27 @@ public class TalonConfigs {
             config.motionProfileTrajectoryPeriod = 1;
             config.trajectoryInterpolationEnable = true;
 
-            config.slot0.kP = 0.001;
+            // SLOT O: FANCY POSITION
+            config.slot0.kP = 2.0;
             config.slot0.kI = 0.0;
             config.slot0.kD = 0.0;
+            config.slot0.kF = 10.0;
             config.slot0.integralZone = 10;
             config.slot0.allowableClosedloopError = 10;
             config.slot0.maxIntegralAccumulator = 100;
             config.slot0.closedLoopPeakOutput = 1.0;
             config.slot0.closedLoopPeriod = 1;
 
+            // SLOT 1: CURRENT
+            config.slot1.kP = 0.0;
+            config.slot1.kI = 0.0;
+            config.slot1.kD = 0.0;
+            config.slot1.kF = 1.0;
+            config.slot1.integralZone = 10;
+            config.slot1.allowableClosedloopError = 10;
+            config.slot1.maxIntegralAccumulator = 100;
+            config.slot1.closedLoopPeakOutput = 1.0;
+            config.slot1.closedLoopPeriod = 1;
             /*
              * TODO: verify that this is still true
              * things not handled with config:
@@ -255,7 +277,7 @@ public class TalonConfigs {
              * Status Frame Periods
              */
 
-            TalonUtil.check(talon.configAllSettings(config, 50));
+            TalonUtil.requireOK(talon.configAllSettings(config, 50));
             talon.setInverted(false);
             talon.setSensorPhase(true);
 
@@ -267,6 +289,11 @@ public class TalonConfigs {
     }
 
     public static void configureHangarTalons(HangarSubsystem hangar) {
+
+        for(var talon : hangar.talons){
+            TalonUtil.requireOK(talon.configFactoryDefault(50));
+        }
+    
         HangarConfigs.configureArm(hangar.arm);
         HangarConfigs.configureHook(hangar.hook);
         HangarConfigs.configureWinch(hangar.winch);

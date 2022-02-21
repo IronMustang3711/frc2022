@@ -15,6 +15,7 @@ public class JoystickErrorMessageSilencer extends CommandBase {
       return true;
   }
 
+  @SuppressWarnings("all")
   @Override
   public void initialize() {
     try {

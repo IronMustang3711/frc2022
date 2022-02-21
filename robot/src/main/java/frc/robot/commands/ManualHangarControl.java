@@ -8,12 +8,12 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.HangarSubsystem;
 
-public class HangarCommand extends CommandBase {
+public class ManualHangarControl extends CommandBase {
   private HangarSubsystem hangar;
   private XboxController xbox;
 
   /** Creates a new HangarCommand. */
-  public HangarCommand(HangarSubsystem hangar, XboxController xbox) {
+  public ManualHangarControl(HangarSubsystem hangar, XboxController xbox) {
     this.hangar = hangar;
     this.xbox = xbox;
     addRequirements(hangar);

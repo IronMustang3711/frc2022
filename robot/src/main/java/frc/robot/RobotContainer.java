@@ -11,20 +11,16 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.CargoCommands;
 import frc.robot.commands.DriveWithJoystick;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.HangarCommand;
-import frc.robot.commands.RunFeedworks;
-import frc.robot.commands.RunIntake;
-import frc.robot.commands.RunShooter;
+import frc.robot.commands.ManualHangarControl;
 import frc.robot.commands.ShuffleboardCommandsTab;
 import frc.robot.subsystems.CargoSubsystem;
 import frc.robot.subsystems.ChassisSubsystem;
 import frc.robot.subsystems.HangarSubsystem;
 import frc.robot.subsystems.RobotSubsystem;
 import frc.robot.util.TalonFaultsReporter;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -40,14 +36,13 @@ public class RobotContainer {
 
   public final List<RobotSubsystem> subsystems = List.of(chassis,cargo,hangar);
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(chassis);
 
   final Joystick stick = new Joystick(0);
   final XboxController xbox = new XboxController(1);
 
 
   DriveWithJoystick drive_cmd = new DriveWithJoystick(stick, chassis);
-  HangarCommand hangar_cmd = new HangarCommand(hangar, xbox);
+  ManualHangarControl hangar_cmd = new ManualHangarControl(hangar, xbox);
 
 
   PowerDistribution pdp = new PowerDistribution();
@@ -82,22 +77,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(stick, 1).whileHeld(new RunShooter(cargo));
-    new JoystickButton(stick, 3).toggleWhenPressed(new RunIntake(cargo));
-    new JoystickButton(stick, 2).whileHeld(new RunFeedworks(cargo));
-
-    //FIXME:
-    //new JoystickButton(stick, 4).whenPressed(new IntakeCommand(cargo));
-   // new JoystickButton(stick, 4).whenPressed(IntakeCommand.autoFeed(cargo));
-  }
-
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
-  public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    new JoystickButton(stick, 1).whenPressed(CargoCommands.shoot(cargo));
+    new JoystickButton(stick, 2).whenPressed(CargoCommands.autofeed(cargo));
   }
 }
