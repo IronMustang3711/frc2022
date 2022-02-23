@@ -11,7 +11,7 @@ public class HangarCommands {
 
 
     public static Command armOut(){
-        //bring winch out & arm
+        //bring winch(-50000) out & arm
         return null;
     }
 

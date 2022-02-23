@@ -109,13 +109,13 @@ public class TalonUtil {
     }
   }
 
-  static class MotionMagicTelemetry implements Runnable {
+  public static class MotionMagicTelemetry implements Runnable {
     final WPI_TalonSRX talon;
     final NetworkTableEntry trajPosition;
     final NetworkTableEntry trajVelocity;
     final NetworkTableEntry trajFF;
 
-    MotionMagicTelemetry(WPI_TalonSRX talon, ShuffleboardContainer container) {
+   public MotionMagicTelemetry(WPI_TalonSRX talon, ShuffleboardContainer container) {
       this.talon = talon;
       trajPosition = container.add("trajPosition", 0.0).getEntry();// table.getEntry("trajPosition");
       trajVelocity = container.add("trajVelocity", 0.0).getEntry();// table.getEntry("trajVelocity");

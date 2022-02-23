@@ -38,7 +38,7 @@ public class TalonConfigs {
             config.reverseLimitSwitchSource = LimitSwitchSource.Deactivated;
             /****************** RAMPING *********************/
             config.openloopRamp = 1.0;
-            config.closedloopRamp = 1.0;
+            config.closedloopRamp = 0.0;
             /******************* OUTPUT LIMITS **************/
             config.peakOutputForward = 0.5;
             config.peakOutputReverse = -0.5;
@@ -124,7 +124,7 @@ public class TalonConfigs {
             config.reverseLimitSwitchSource = LimitSwitchSource.Deactivated;
             /********** RAMPING ****************/
             config.openloopRamp = 1.0;
-            config.closedloopRamp = 1.0;
+            config.closedloopRamp =0.0;// 1.0;
 
 
             /***********OUTPUT LIMITS */
@@ -143,11 +143,11 @@ public class TalonConfigs {
             /********* SOFT LIMITS **********/
             config.forwardSoftLimitThreshold = 100;
             config.forwardSoftLimitEnable = false;
-            config.reverseSoftLimitThreshold = -45530;
+            config.reverseSoftLimitThreshold = -50000;
             config.reverseSoftLimitEnable = false;
 
-            config.motionCruiseVelocity = 100;
-            config.motionAcceleration = 50;
+            config.motionCruiseVelocity = 3000;
+            config.motionAcceleration = 1500;
             config.motionCurveStrength = 4;
 
             config.clearPositionOnLimitF = false;
@@ -157,7 +157,7 @@ public class TalonConfigs {
             config.softLimitDisableNeutralOnLOS = true;
 
             config.motionProfileTrajectoryPeriod = 1;
-            config.trajectoryInterpolationEnable = true;
+            config.trajectoryInterpolationEnable = false;
 
             // FANCY POSITION SLOT
             config.slot0.kP = 2.0;

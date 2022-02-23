@@ -7,6 +7,7 @@ package frc.robot.commands;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.EventImportance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -38,7 +39,7 @@ WPI_TalonSRX talon;
   }
 
   public double getMotionProgress(){
-    double totalDistance = setpoint - initialPosition;
+    double totalDistance = getSetpoint() - initialPosition;
     double trajPos = talon.getActiveTrajectoryPosition();
     return (trajPos - initialPosition) / totalDistance;
   }
@@ -53,30 +54,38 @@ WPI_TalonSRX talon;
   @Override
   public
    void initialize() {
+     if(Robot.debug)
     TalonUtil.setupControlMode(talon, ControlMode.MotionMagic);
     initialPosition = talon.getSelectedSensorPosition();
     startTime = System.currentTimeMillis();
-    if(Robot.debug)
+    if(Robot.debug){
       Shuffleboard.addEventMarker("MM_"+getName() + "_Init", EventImportance.kNormal);
+      DriverStation.reportWarning("MM_"+TalonUtil.getName(talon)+"_Init", false);
+
+    }
 
   }
 
   @Override
   public void execute() {
-    talon.set(ControlMode.MotionMagic, setpoint);
+    talon.set(ControlMode.MotionMagic, getSetpoint());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    if(Robot.debug)
-    Shuffleboard.addEventMarker("MM_"+getName() + "_End", EventImportance.kNormal);
+    if(Robot.debug){
+      DriverStation.reportWarning("MM_"+TalonUtil.getName(talon) + "_End", false);
+      Shuffleboard.addEventMarker("MM_"+TalonUtil.getName(talon) + "_End", EventImportance.kNormal);
+
+    }
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return  isMotionFinished();
+
+    return  false;//isMotionFinished();
 
   }
 }
