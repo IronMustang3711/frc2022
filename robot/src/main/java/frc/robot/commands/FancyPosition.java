@@ -18,7 +18,7 @@ public class FancyPosition extends CommandBase {
 double setpoint;
 long startTime;
 double initialPosition;
-WPI_TalonSRX talon;
+protected WPI_TalonSRX talon;
 
   public FancyPosition(WPI_TalonSRX talon,double setpoint) {
     this.talon = talon;
@@ -54,8 +54,8 @@ WPI_TalonSRX talon;
   @Override
   public
    void initialize() {
-     if(Robot.debug)
-    TalonUtil.setupControlMode(talon, ControlMode.MotionMagic);
+   
+   // TalonUtil.setupControlMode(talon, ControlMode.MotionMagic); //TODO???
     initialPosition = talon.getSelectedSensorPosition();
     startTime = System.currentTimeMillis();
     if(Robot.debug){

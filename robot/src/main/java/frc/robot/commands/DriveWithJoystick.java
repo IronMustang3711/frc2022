@@ -34,7 +34,7 @@ final ChassisSubsystem chassis;
 
 
 
-    double rotate = -1*stick.getTwist();
+    double rotate = -0.75*stick.getTwist();
    // rotate = rotate*rotate*rotate;
 
     chassis.drive(fwd, rotate);

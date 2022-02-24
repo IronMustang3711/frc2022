@@ -15,19 +15,19 @@ import frc.robot.util.TalonUtil;
 /** Add your docs here. */
 public class Commands {
 
-    public static Command constantCurrent(WPI_TalonSRX talon,double current){
-        return new CommandBase() {
-            @Override
-            public void initialize() {
-                TalonUtil.setupControlMode(talon, ControlMode.Current);
-            }
-            @Override
-            public void execute() {
-                talon.set(ControlMode.Current,current);
-            }
+    // public static Command constantCurrent(WPI_TalonSRX talon,double current){
+    //     return new CommandBase() {
+    //         @Override
+    //         public void initialize() {
+    //             TalonUtil.setupControlMode(talon, ControlMode.Current);
+    //         }
+    //         @Override
+    //         public void execute() {
+    //             talon.set(ControlMode.Current,current);
+    //         }
 
-        };
-    }
+    //     };
+    // }
 
     public static Command stopMotor(WPI_TalonSRX talon){
         return new InstantCommand(talon::neutralOutput); //TODO: RunCommand?

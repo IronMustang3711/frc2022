@@ -17,9 +17,10 @@ public class ShuffleboardCommandsTab {
 
         for(var sys : robot.subsystems){
             var lst = tab.getLayout(sys.getName(), BuiltInLayouts.kList);
-            lst.add(new FaultCheck(sys));
+            lst.add(new ClearFaults(sys));
             lst.add(new StopMotors(sys));
             lst.add(new EncoderReset(sys));
+
         }
 
     }

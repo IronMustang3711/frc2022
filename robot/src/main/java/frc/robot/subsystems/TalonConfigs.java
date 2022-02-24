@@ -74,10 +74,10 @@ public class TalonConfigs {
             config.trajectoryInterpolationEnable = true;
 
             //FANCY POSITION
-            config.slot0.kP = 1.0;
+            config.slot0.kP = 5.0;
             config.slot0.kI = 0.0;
             config.slot0.kD = 0.0;
-            config.slot0.kF = 1.0;
+            config.slot0.kF = 5.0;
             config.slot0.integralZone = 10;
             config.slot0.allowableClosedloopError = 10;
             config.slot0.maxIntegralAccumulator = 100;
@@ -102,8 +102,8 @@ public class TalonConfigs {
             talon.enableVoltageCompensation(true);
             talon.selectProfileSlot(0, 0);
 
-            talon.setInverted(true);
-            talon.setSensorPhase(false);
+            talon.setInverted(false);
+            talon.setSensorPhase(true);
             talon.setNeutralMode(NeutralMode.Brake);
         }
 

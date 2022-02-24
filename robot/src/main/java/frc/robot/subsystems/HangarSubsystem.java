@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.DoubleSupplier;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -15,8 +16,7 @@ import edu.wpi.first.networktables.EntryListenerFlags;
 import edu.wpi.first.networktables.EntryNotification;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.ScheduleCommand;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.commands.EncoderReset;
 import frc.robot.commands.FancyPosition;
 import frc.robot.util.TalonUtil;
@@ -29,23 +29,29 @@ public class HangarSubsystem extends RobotSubsystem {
   NetworkTableEntry armSetpoint;
   NetworkTableEntry winchSetpoint;
   NetworkTableEntry hookSetpoint;
+  NetworkTableEntry hookCurrentSetpoint;
 
   List<Runnable> telems = new ArrayList<>();
 
-
   class PositionThing extends FancyPosition {
     DoubleSupplier setpointFN;
-    public PositionThing(WPI_TalonSRX talon,DoubleSupplier setpoint) {
+
+    public PositionThing(WPI_TalonSRX talon, DoubleSupplier setpoint) {
       super(talon, setpoint.getAsDouble());
       this.setpointFN = setpoint;
       addRequirements(HangarSubsystem.this);
     }
+
     @Override
-    public
-   double  getSetpoint(){
-    return setpointFN.getAsDouble();
-    // return winchSetpoint.getDouble(0.0);
-   }
+    public void initialize() {
+      HangarSubsystem.setupControlMode(talon, ControlMode.MotionMagic);
+    }
+
+    @Override
+    public double getSetpoint() {
+      return setpointFN.getAsDouble();
+      // return winchSetpoint.getDouble(0.0);
+    }
 
   }
 
@@ -54,39 +60,52 @@ public class HangarSubsystem extends RobotSubsystem {
     addTalon("hook", hook);
     addTalon("winch", winch);
 
-    
-
     setupTalonTelemWidget(winch);
     setupTalonTelemWidget(arm);
     setupTalonTelemWidget(hook);
 
     TalonConfigs.configureHangarTalons(this);
 
+    tab.add("Zero encoders", new EncoderReset(this));
 
-    tab.add("Zero encoders",new EncoderReset(this));
+    armSetpoint = tab.add("arm setpoint", 0.0).getEntry();
+    armSetpoint.addListener((EntryNotification notification) -> {
+      this.armSetpointChanged(notification.value.getDouble());
+    }, EntryListenerFlags.kUpdate | EntryListenerFlags.kNew);
 
-   armSetpoint =  tab.add("arm setpoint",0.0).getEntry();
-   armSetpoint.addListener((EntryNotification notification)->{
-    this.armSetpointChanged(notification.value.getDouble());
-   },EntryListenerFlags.kUpdate|EntryListenerFlags.kNew);
+    winchSetpoint = tab.add("winch setpoint", 0.0).getEntry();
+    winchSetpoint.addListener((notification) -> {
+      this.winchSetpointChanged(notification.value.getDouble());
+    }, EntryListenerFlags.kUpdate | EntryListenerFlags.kNew);
 
+    hookSetpoint = tab.add("hook setpoint", 0.0).getEntry();
+    hookSetpoint.addListener((notification) -> {
+      this.hookSetpointChanged(notification.value.getDouble());
+    }, EntryListenerFlags.kUpdate | EntryListenerFlags.kNew);
 
-   winchSetpoint = tab.add("winch setpoint",0.0).getEntry();
-   winchSetpoint.addListener((notification)->{
-     this.winchSetpointChanged(notification.value.getDouble());
-   }, EntryListenerFlags.kUpdate|EntryListenerFlags.kNew);
+    hookCurrentSetpoint = tab.add("hook current setpoint", 0.0).getEntry();
+    hookCurrentSetpoint.addListener((notification) -> {
+      this.hookCurrentSetpointChanged(notification.value.getDouble());
+    }, EntryListenerFlags.kUpdate | EntryListenerFlags.kNew);
 
-   hookSetpoint = tab.add("hook setpoint",0.0).getEntry();
-   hookSetpoint.addListener((notification)->{
-    this.hookSetpointChanged(notification.value.getDouble());
-  }, EntryListenerFlags.kUpdate|EntryListenerFlags.kNew);
+    tab.add("winch control", new PositionThing(winch, () -> winchSetpoint.getValue().getDouble()));
+    tab.add("arm control", new PositionThing(arm, () -> armSetpoint.getValue().getDouble()));
+    tab.add("hook control", new PositionThing(hook, () -> hookSetpoint.getValue().getDouble()));
+    tab.add("hook cc", new CommandBase() {
+      @Override
+      public void initialize() {
+        HangarSubsystem.setupControlMode(hook, ControlMode.Current);
+      }
 
-  tab.add("winch control",new PositionThing(winch,()->winchSetpoint.getValue().getDouble()));
-  tab.add("arm control",new PositionThing(arm,()->armSetpoint.getValue().getDouble()));
+      @Override
+      public void execute() {
+        hook.set(ControlMode.Current, hookCurrentSetpoint.getValue().getDouble());
+      }
 
-  tab.add("hook control",new InstantCommand(()->{
-    new FancyPosition(hook, hookSetpoint.getDouble(0.0)).schedule();
-  }));
+    });
+  }
+
+  private void hookCurrentSetpointChanged(double double1) {
   }
 
   private void hookSetpointChanged(double double1) {
@@ -112,5 +131,15 @@ public class HangarSubsystem extends RobotSubsystem {
   @Override
   public void periodic() {
     telems.forEach(Runnable::run);
+  }
+
+  public static void setupControlMode(WPI_TalonSRX talon, ControlMode mode) {
+    if (TalonUtil.MOTION_PROFILE_MODES.contains(mode))
+      talon.selectProfileSlot(0, 0);
+
+    else if (ControlMode.Current.equals(mode))
+      talon.selectProfileSlot(1, 0);
+    else
+      throw new RuntimeException("control mode not set up!! ");
   }
 }

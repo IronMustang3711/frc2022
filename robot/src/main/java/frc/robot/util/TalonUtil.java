@@ -12,12 +12,12 @@ import java.util.Set;
 
 public class TalonUtil {
 
-  private static final Set<ControlMode> CLOSED_LOOP_MODES = EnumSet.complementOf(EnumSet.of(ControlMode.Disabled,
+  public static final Set<ControlMode> CLOSED_LOOP_MODES = EnumSet.complementOf(EnumSet.of(ControlMode.Disabled,
       ControlMode.Follower,
       ControlMode.PercentOutput,
       ControlMode.MusicTone));
 
-  private static final Set<ControlMode> MOTION_PROFILE_MODES = EnumSet.of(ControlMode.MotionMagic,
+  public static final Set<ControlMode> MOTION_PROFILE_MODES = EnumSet.of(ControlMode.MotionMagic,
       ControlMode.MotionProfile, ControlMode.MotionProfileArc);
 
   public static String getName(WPI_TalonSRX talon) {
@@ -30,15 +30,6 @@ public class TalonUtil {
     throw new RuntimeException(err.name());
   }
 
-  public static void setupControlMode(WPI_TalonSRX talon, ControlMode mode) {
-    if (MOTION_PROFILE_MODES.contains(mode))
-      talon.selectProfileSlot(0, 0);
-
-    else if (ControlMode.Current.equals(mode))
-      talon.selectProfileSlot(1, 0);
-    else
-      throw new RuntimeException("control mode not set up!! ");
-  }
 
   public static class BasicTalonTelemetry implements Runnable {
     private final NetworkTableEntry outputPercent;
