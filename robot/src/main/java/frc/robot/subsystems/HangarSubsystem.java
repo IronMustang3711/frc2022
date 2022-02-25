@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.commands.EncoderReset;
 import frc.robot.commands.FancyPosition;
+import frc.robot.commands.HangarCommands;
 import frc.robot.util.TalonUtil;
 
 public class HangarSubsystem extends RobotSubsystem {
@@ -103,6 +104,13 @@ public class HangarSubsystem extends RobotSubsystem {
       }
 
     });
+    HangarCommands commands = new HangarCommands(this);
+
+    tab.add(commands.armOut());
+    tab.add(commands.toHome());
+    tab.add(commands.winchLift());
+
+
   }
 
   private void hookCurrentSetpointChanged(double double1) {

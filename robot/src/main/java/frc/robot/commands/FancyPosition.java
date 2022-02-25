@@ -22,6 +22,7 @@ protected WPI_TalonSRX talon;
 
   public FancyPosition(WPI_TalonSRX talon,double setpoint) {
     this.talon = talon;
+    this.setpoint = setpoint;
   }
 
   public void setSetpoint(double setpoint){
@@ -55,7 +56,6 @@ protected WPI_TalonSRX talon;
   public
    void initialize() {
    
-   // TalonUtil.setupControlMode(talon, ControlMode.MotionMagic); //TODO???
     initialPosition = talon.getSelectedSensorPosition();
     startTime = System.currentTimeMillis();
     if(Robot.debug){
@@ -84,8 +84,6 @@ protected WPI_TalonSRX talon;
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-
-    return  false;//isMotionFinished();
-
+    return false; // isMotionFinished(); TODO: this works but we need another command afterwards to hold position
   }
 }
