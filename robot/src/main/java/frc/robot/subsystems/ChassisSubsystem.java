@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import java.util.stream.Stream;
 
 import com.ctre.phoenix.motorcontrol.InvertType;
+import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -27,6 +28,12 @@ public class ChassisSubsystem extends RobotSubsystem {
    // addTalon("rightRear", rightRear);
 
     Stream.of(leftFront, leftRear, rightFront, rightRear).forEach(WPI_TalonSRX::configFactoryDefault);
+
+    SupplyCurrentLimitConfiguration currLimit = new SupplyCurrentLimitConfiguration(true, 30, 30, 1);
+    rightFront.configSupplyCurrentLimit(currLimit);
+    rightRear.configSupplyCurrentLimit(currLimit);
+    leftFront.configSupplyCurrentLimit(currLimit);
+    leftRear.configSupplyCurrentLimit(currLimit);
     
     rightFront.setInverted(false);
     leftFront.setInverted(true);
