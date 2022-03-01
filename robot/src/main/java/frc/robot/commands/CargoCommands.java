@@ -11,10 +11,10 @@ import frc.robot.subsystems.CargoSubsystem;
 /** Add your docs here. */
 public class CargoCommands {
 
-    static class _cmd extends CommandBase {
+    static class Autofeed extends CommandBase {
         CargoSubsystem cargo;
 
-        _cmd(CargoSubsystem cargo) {
+        Autofeed(CargoSubsystem cargo) {
             this.cargo = cargo;
             addRequirements(cargo);
         }
@@ -50,7 +50,7 @@ public class CargoCommands {
     }
 
     public static Command autofeed(CargoSubsystem cargo) {
-        return new _cmd(cargo);
+        return new Autofeed(cargo);
     }
 
     public static Command shoot(CargoSubsystem cargo) {

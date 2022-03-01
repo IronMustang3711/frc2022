@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.CargoCommands;
 import frc.robot.commands.DriveWithJoystick;
@@ -56,7 +57,7 @@ public class RobotContainer {
     hangar.setDefaultCommand(hangar_cmd);
 
     SmartDashboard.putData("drive command",drive_cmd);
-    SmartDashboard.putData("hangar command",hangar_cmd);
+   // SmartDashboard.putData("hangar command",hangar_cmd);
 
 
     SmartDashboard.putData(pdp);
@@ -79,5 +80,40 @@ public class RobotContainer {
   private void configureButtonBindings() {
     new JoystickButton(stick, 1).whenPressed(CargoCommands.shoot(cargo));
     new JoystickButton(stick, 2).whenPressed(CargoCommands.autofeed(cargo));
+ 
+    var hangarCommands = hangar.commands;
+
+    
+    new JoystickButton(xbox, XboxController.Button.kRightBumper.value).whenPressed(hangarCommands.hooksOut());
+    new JoystickButton(xbox, XboxController.Button.kLeftBumper.value).whenPressed(hangarCommands.hooksIn());
+    new JoystickButton(xbox, XboxController.Button.kY.value).whenPressed(hangarCommands.armOut());
+        
+    CommandBase winchToggle = new CommandBase() {
+      boolean cancelWinch = false;
+
+      @Override
+      public void initialize() {
+        if(cancelWinch){
+          hangarCommands.winchLift().cancel();
+        }
+        else{
+          hangarCommands.winchLift().schedule();
+        }
+        cancelWinch = !cancelWinch;
+      }
+      @Override
+      public boolean isFinished() {
+          return true;
+      }
+      
+    };
+
+    new JoystickButton(xbox, XboxController.Button.kA.value).whenPressed(winchToggle);
+
+  
+   
+    new JoystickButton(xbox, XboxController.Button.kB.value).whenPressed(hangarCommands.armToNextRung());
+    new JoystickButton(xbox, XboxController.Button.kStart.value).whenPressed(hangarCommands.toHome());
+    new JoystickButton(xbox, XboxController.Button.kBack.value).whenPressed(hangar_cmd);
   }
 }

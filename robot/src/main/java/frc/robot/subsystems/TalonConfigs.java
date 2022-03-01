@@ -112,9 +112,9 @@ public class TalonConfigs {
             TalonSRXConfiguration config = new TalonSRXConfiguration();
 
             /******** CURRENT LIMIT (ENABLED BELOW) **********/
-            config.peakCurrentLimit = 20;
-            config.peakCurrentDuration = 10;
-            config.continuousCurrentLimit = 15;
+            config.peakCurrentLimit = 40;
+            config.peakCurrentDuration = 1;
+            config.continuousCurrentLimit = 40;
 
             config.primaryPID.selectedFeedbackSensor = FeedbackDevice.QuadEncoder;
             config.primaryPID.selectedFeedbackCoefficient = 1.0;
@@ -174,11 +174,11 @@ public class TalonConfigs {
             config.slot1.kP = 0;
             config.slot1.kI = 0.0;
             config.slot1.kD = 0.0;
-            config.slot1.kF = 1.0;
+            config.slot1.kF = 0.01;
             config.slot1.integralZone = 10;
             config.slot1.allowableClosedloopError = 10;
             config.slot1.maxIntegralAccumulator = 100;
-            config.slot1.closedLoopPeakOutput = 1.0;
+            config.slot1.closedLoopPeakOutput = 0.5;
             config.slot1.closedLoopPeriod = 1;
 
             TalonUtil.requireOK(talon.configAllSettings(config, 50));
@@ -196,9 +196,9 @@ public class TalonConfigs {
 
             TalonSRXConfiguration config = new TalonSRXConfiguration();
             /******** CURRENT LIMIT (ENABLED BELOW) **********/
-            config.peakCurrentLimit = 15;
+            config.peakCurrentLimit = 10;
             config.peakCurrentDuration = 10;
-            config.continuousCurrentLimit = 10;
+            config.continuousCurrentLimit = 4;
 
             config.primaryPID.selectedFeedbackSensor = FeedbackDevice.QuadEncoder;
             config.primaryPID.selectedFeedbackCoefficient = 1.0;
@@ -210,8 +210,8 @@ public class TalonConfigs {
             config.openloopRamp = 0.0;
             config.closedloopRamp = 0.0;
             /****** OUTPUT LIMITS **********/
-            config.peakOutputForward = 0.3;
-            config.peakOutputReverse = -0.3;
+            config.peakOutputForward = 0.6;
+            config.peakOutputReverse = -0.6;
 
             config.nominalOutputForward = 0.0;
             config.nominalOutputReverse = 0.0;
@@ -229,8 +229,8 @@ public class TalonConfigs {
             config.reverseSoftLimitThreshold = -1000;
             config.reverseSoftLimitEnable = false;
 
-            config.motionCruiseVelocity = 150;
-            config.motionAcceleration = 50;
+            config.motionCruiseVelocity = 500;
+            config.motionAcceleration = 500;
             config.motionCurveStrength = 4;
 
             config.clearPositionOnLimitF = false;
@@ -243,10 +243,10 @@ public class TalonConfigs {
             config.trajectoryInterpolationEnable = true;
 
             // SLOT O: FANCY POSITION
-            config.slot0.kP = 2.0;
-            config.slot0.kI = 0.0;
+            config.slot0.kP = 0.50;
+            config.slot0.kI = 0.001;
             config.slot0.kD = 0.0;
-            config.slot0.kF = 10.0;
+            config.slot0.kF = 1.0;
             config.slot0.integralZone = 10;
             config.slot0.allowableClosedloopError = 10;
             config.slot0.maxIntegralAccumulator = 100;
@@ -263,20 +263,7 @@ public class TalonConfigs {
             config.slot1.maxIntegralAccumulator = 100;
             config.slot1.closedLoopPeakOutput = 1.0;
             config.slot1.closedLoopPeriod = 1;
-            /*
-             * TODO: verify that this is still true
-             * things not handled with config:
-             * []Current Limit Enable (though the thresholds are configs)
-             * []Voltage Compensation Enable (though the nominal voltage is a config)
-             * Control Mode and Target/Output demand (percent, position, velocity, etc.)
-             * []Invert direction and sensor phase
-             * []Closed-loop slot selection [0,3] for primary and aux PID loops.
-             * Neutral mode override (convenient to temporarily override configs)
-             * Limit switch override (convenient to temporarily override configs)
-             * Soft Limit override (convenient to temporarily override configs)
-             * Status Frame Periods
-             */
-
+           
             TalonUtil.requireOK(talon.configAllSettings(config, 50));
             talon.setInverted(false);
             talon.setSensorPhase(true);

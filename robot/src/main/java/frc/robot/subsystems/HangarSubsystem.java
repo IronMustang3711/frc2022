@@ -30,7 +30,9 @@ public class HangarSubsystem extends RobotSubsystem {
   NetworkTableEntry armSetpoint;
   NetworkTableEntry winchSetpoint;
   NetworkTableEntry hookSetpoint;
-  NetworkTableEntry hookCurrentSetpoint;
+  NetworkTableEntry winchCurrentSetpoint;
+
+  public HangarCommands commands;
 
   List<Runnable> telems = new ArrayList<>();
 
@@ -61,6 +63,8 @@ public class HangarSubsystem extends RobotSubsystem {
     addTalon("hook", hook);
     addTalon("winch", winch);
 
+    commands = new HangarCommands(this);
+
     setupTalonTelemWidget(winch);
     setupTalonTelemWidget(arm);
     setupTalonTelemWidget(hook);
@@ -84,37 +88,39 @@ public class HangarSubsystem extends RobotSubsystem {
       this.hookSetpointChanged(notification.value.getDouble());
     }, EntryListenerFlags.kUpdate | EntryListenerFlags.kNew);
 
-    hookCurrentSetpoint = tab.add("hook current setpoint", 0.0).getEntry();
-    hookCurrentSetpoint.addListener((notification) -> {
-      this.hookCurrentSetpointChanged(notification.value.getDouble());
-    }, EntryListenerFlags.kUpdate | EntryListenerFlags.kNew);
+    winchCurrentSetpoint = tab.add("winch current setpoint", 0.0).getEntry();
 
+
+    
     tab.add("winch control", new PositionThing(winch, () -> winchSetpoint.getValue().getDouble()));
     tab.add("arm control", new PositionThing(arm, () -> armSetpoint.getValue().getDouble()));
     tab.add("hook control", new PositionThing(hook, () -> hookSetpoint.getValue().getDouble()));
-    tab.add("hook cc", new CommandBase() {
+    tab.add("winch cc", new CommandBase() {
       @Override
       public void initialize() {
-        HangarSubsystem.setupControlMode(hook, ControlMode.Current);
+        HangarSubsystem.setupControlMode(winch, ControlMode.Current);
       }
 
       @Override
       public void execute() {
-        hook.set(ControlMode.Current, hookCurrentSetpoint.getValue().getDouble());
+        hook.set(ControlMode.Current, winchCurrentSetpoint.getValue().getDouble());
       }
 
     });
-    HangarCommands commands = new HangarCommands(this);
 
-    tab.add(commands.armOut());
-    tab.add(commands.toHome());
-    tab.add(commands.winchLift());
+    var seqs = tab.getLayout("command sequences", BuiltInLayouts.kList);
+
+    seqs.add(commands.armOut());
+    seqs.add(commands.toHome());
+    seqs.add(commands.winchLift());
+    seqs.add(commands.hooksOut());
+    seqs.add(commands.hooksIn());
+    seqs.add(commands.armToNextRung());
 
 
   }
 
-  private void hookCurrentSetpointChanged(double double1) {
-  }
+ 
 
   private void hookSetpointChanged(double double1) {
   }

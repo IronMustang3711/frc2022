@@ -4,13 +4,10 @@
 
 package frc.robot.commands;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.util.TalonUtil;
 
 /** Add your docs here. */
 public class Commands {
@@ -30,7 +27,7 @@ public class Commands {
     // }
 
     public static Command stopMotor(WPI_TalonSRX talon){
-        return new InstantCommand(talon::neutralOutput); //TODO: RunCommand?
+        return new InstantCommand(talon::neutralOutput); 
     }
 
 }

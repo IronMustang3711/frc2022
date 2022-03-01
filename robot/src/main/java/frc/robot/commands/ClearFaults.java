@@ -20,7 +20,7 @@ public class ClearFaults extends RobotCommand {
         DriverStation.reportError(TalonUtil.getName(talon) + "CLEARING STICKY FAULTS:\n"+stickyFaults.toString(),false);
         TalonUtil.requireOK(talon.clearStickyFaults(50));
       }
-    }
+    }  
   }
 
   @Override

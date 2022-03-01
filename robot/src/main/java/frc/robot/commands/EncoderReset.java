@@ -12,6 +12,12 @@ public class EncoderReset extends CommandBase {
     this.subsystem = subsystem;
     addRequirements(subsystem);
     setName("reset encoders(" + subsystem.getName() + ")");
+  
+  }
+
+  @Override
+  public boolean runsWhenDisabled() {
+    return true;
   }
 
   @Override
@@ -20,5 +26,9 @@ public class EncoderReset extends CommandBase {
       requireOK(talon.setSelectedSensorPosition(0,0,50));
       requireOK(talon.getSensorCollection().setQuadraturePosition(0,50));
     }
+  }
+  @Override
+  public boolean isFinished() {
+      return true;
   }
 }

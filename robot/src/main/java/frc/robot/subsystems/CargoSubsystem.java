@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -34,6 +35,10 @@ public class CargoSubsystem extends RobotSubsystem {
 
     shooter.configVoltageCompSaturation(10);
     shooter.enableVoltageCompensation(true);
+
+    SupplyCurrentLimitConfiguration currentLimit = new SupplyCurrentLimitConfiguration(true,40,40,1);
+    shooter.configSupplyCurrentLimit(currentLimit, 50);
+    shooter.enableCurrentLimit(true);
 
   
     addChild("upperPhotoeye", upperPhotoeye);

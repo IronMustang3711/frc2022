@@ -4,9 +4,11 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.EncoderReset;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -61,7 +63,13 @@ private Command m_autonomousCommand;
   public void disabledInit() {}
 
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+    if(RobotController.getUserButton()){
+      for(var sys : m_robotContainer.subsystems){
+        new EncoderReset(sys).schedule();
+      }
+    }
+  }
 
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
