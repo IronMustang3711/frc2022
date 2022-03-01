@@ -29,7 +29,7 @@ public class ChassisSubsystem extends RobotSubsystem {
 
     Stream.of(leftFront, leftRear, rightFront, rightRear).forEach(WPI_TalonSRX::configFactoryDefault);
 
-    SupplyCurrentLimitConfiguration currLimit = new SupplyCurrentLimitConfiguration(true, 30, 30, 1);
+    SupplyCurrentLimitConfiguration currLimit = new SupplyCurrentLimitConfiguration(true, 25, 25, 0);
     rightFront.configSupplyCurrentLimit(currLimit);
     rightRear.configSupplyCurrentLimit(currLimit);
     leftFront.configSupplyCurrentLimit(currLimit);
