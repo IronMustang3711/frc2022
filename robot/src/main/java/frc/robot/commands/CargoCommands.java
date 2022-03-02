@@ -24,15 +24,19 @@ public class CargoCommands {
             boolean lowerBlocked = cargo.isLowerPhotoeyeBlocked();
             boolean upperBlocked = cargo.isUpperPhotoeyeBlocked();
 
-            if (!upperBlocked)
-                cargo.feedworks.set(0.5);
-            else
+            if (lowerBlocked & upperBlocked) {
                 cargo.feedworks.neutralOutput();
-
-            if (!lowerBlocked && !upperBlocked)
-                cargo.intake.set(0.5);
-            else if (lowerBlocked && upperBlocked)
                 cargo.intake.neutralOutput();
+            } else if (lowerBlocked & !upperBlocked) {
+                cargo.intake.set(0.5);
+                cargo.feedworks.set(0.5);
+            } else if (!lowerBlocked & upperBlocked) {
+                cargo.feedworks.neutralOutput();
+                cargo.intake.set(0.5);
+            } else if (!lowerBlocked & !upperBlocked) {
+                cargo.intake.set(0.5);
+                cargo.feedworks.set(0.5);
+            }
 
         }
 
@@ -69,19 +73,20 @@ public class CargoCommands {
             @Override
             public void execute() {
                 cargo.shooter.set(1.0);
+
                 elapsed = System.currentTimeMillis() - startTime;
 
-                if (elapsed > 2500)
+                if (elapsed > 1500)
                     cargo.feedworks.set(0.5);
 
-                if (elapsed > 4000)
+                if (elapsed > 2000)
                     cargo.intake.set(0.5);
 
             }
 
             @Override
             public boolean isFinished() {
-                return elapsed > 10000;
+                return elapsed > 5500;
             }
 
             @Override

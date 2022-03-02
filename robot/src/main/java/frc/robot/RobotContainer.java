@@ -11,12 +11,14 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.CargoCommands;
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.ManualHangarControl;
 import frc.robot.commands.ShuffleboardCommandsTab;
+import frc.robot.commands.SimpleAutoDrive;
 import frc.robot.subsystems.CargoSubsystem;
 import frc.robot.subsystems.ChassisSubsystem;
 import frc.robot.subsystems.HangarSubsystem;
@@ -58,7 +60,7 @@ public class RobotContainer {
 
     SmartDashboard.putData("drive command",drive_cmd);
    // SmartDashboard.putData("hangar command",hangar_cmd);
-
+ SmartDashboard.putData("auto drive",new SimpleAutoDrive(chassis, -0.5, 2500));
 
     SmartDashboard.putData(pdp);
    
@@ -78,12 +80,11 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(stick, 1).whenPressed(CargoCommands.shoot(cargo));
-    new JoystickButton(stick, 2).whenPressed(CargoCommands.autofeed(cargo));
+    new JoystickButton(stick, 1).toggleWhenPressed(CargoCommands.shoot(cargo));
+    new JoystickButton(stick, 2).toggleWhenPressed(CargoCommands.autofeed(cargo));
  
     var hangarCommands = hangar.commands;
 
-    
     new JoystickButton(xbox, XboxController.Button.kRightBumper.value).whenPressed(hangarCommands.hooksOut());
     new JoystickButton(xbox, XboxController.Button.kLeftBumper.value).whenPressed(hangarCommands.hooksIn());
     new JoystickButton(xbox, XboxController.Button.kY.value).whenPressed(hangarCommands.armOut());
@@ -115,5 +116,9 @@ public class RobotContainer {
     new JoystickButton(xbox, XboxController.Button.kB.value).whenPressed(hangarCommands.armToNextRung());
     new JoystickButton(xbox, XboxController.Button.kStart.value).whenPressed(hangarCommands.toHome());
     new JoystickButton(xbox, XboxController.Button.kBack.value).whenPressed(hangar_cmd);
+  }
+
+  public Command getAutonomousCommand() {
+    return CargoCommands.shoot(cargo).andThen(new SimpleAutoDrive(chassis, 0.5, 2500));
   }
 }
