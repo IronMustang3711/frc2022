@@ -84,6 +84,6 @@ protected WPI_TalonSRX talon;
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false; // isMotionFinished(); TODO: this works but we need another command afterwards to hold position
+    return false; // isMotionFinished(); 
   }
 }
