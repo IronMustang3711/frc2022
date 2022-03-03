@@ -119,6 +119,6 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return CargoCommands.shoot(cargo).andThen(new SimpleAutoDrive(chassis, 0.5, 2500));
+    return CargoCommands.shoot(cargo).andThen(new SimpleAutoDrive(chassis, 0.5, 3500));
   }
 }
