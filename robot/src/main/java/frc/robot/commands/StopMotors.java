@@ -16,7 +16,14 @@ public class StopMotors extends RobotCommand {
   }
 
   @Override
+  public void execute() {
+    for(var talon : subsystem.talons){
+      talon.neutralOutput();
+    }
+  }
+
+  @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

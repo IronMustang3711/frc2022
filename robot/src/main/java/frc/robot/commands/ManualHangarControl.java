@@ -27,14 +27,14 @@ public class ManualHangarControl extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double arm_amt = -0.5 * xbox.getLeftY();
+    double arm_amt = -1.0 * xbox.getLeftY();
     double winch = xbox.getRightY();
 
     double left_trigger = xbox.getLeftTriggerAxis();
     double right_trigger = xbox.getRightTriggerAxis();
-    double hook_amt = left_trigger > 0.01 ? -left_trigger : right_trigger;
+    double hook_amt = left_trigger > 0.1 ? -left_trigger :  right_trigger > 0.1 ? right_trigger : 0.0;
 
-    hook_amt *= 0.5;
+    //hook_amt *= 0.5;
     hangar.arm.set(arm_amt);
     hangar.winch.set(winch);
     hangar.hook.set(hook_amt);

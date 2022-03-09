@@ -19,6 +19,7 @@ import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.ManualHangarControl;
 import frc.robot.commands.ShuffleboardCommandsTab;
 import frc.robot.commands.SimpleAutoDrive;
+import frc.robot.commands.StopMotors;
 import frc.robot.subsystems.CargoSubsystem;
 import frc.robot.subsystems.ChassisSubsystem;
 import frc.robot.subsystems.HangarSubsystem;
@@ -45,7 +46,7 @@ public class RobotContainer {
 
 
   DriveWithJoystick drive_cmd = new DriveWithJoystick(stick, chassis);
-  ManualHangarControl hangar_cmd = new ManualHangarControl(hangar, xbox);
+  ManualHangarControl manual_hangar_control = new ManualHangarControl(hangar, xbox);
 
 
   PowerDistribution pdp = new PowerDistribution();
@@ -56,7 +57,8 @@ public class RobotContainer {
     configureButtonBindings();
 
     chassis.setDefaultCommand(drive_cmd);
-    hangar.setDefaultCommand(hangar_cmd);
+    hangar.setDefaultCommand(new StopMotors(hangar));
+    //hangar.setDefaultCommand(manual_hangar_control);
 
     SmartDashboard.putData("drive command",drive_cmd);
    // SmartDashboard.putData("hangar command",hangar_cmd);
@@ -113,9 +115,9 @@ public class RobotContainer {
 
   
    
-    new JoystickButton(xbox, XboxController.Button.kB.value).whenPressed(hangarCommands.armToNextRung());
+    new JoystickButton(xbox, XboxController.Button.kB.value).whenPressed(hangarCommands.armToNextRung2());
     new JoystickButton(xbox, XboxController.Button.kStart.value).whenPressed(hangarCommands.toHome());
-    new JoystickButton(xbox, XboxController.Button.kBack.value).whenPressed(hangar_cmd);
+    new JoystickButton(xbox, XboxController.Button.kBack.value).toggleWhenPressed(manual_hangar_control);
   }
 
   public Command getAutonomousCommand() {

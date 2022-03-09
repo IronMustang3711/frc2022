@@ -12,7 +12,7 @@ import frc.robot.commands.EncoderReset;
 
 
 public class Robot extends TimedRobot {
-  public static final boolean debug = false;
+  public static final boolean debug = true;
 
   private Command m_autonomousCommand;
 

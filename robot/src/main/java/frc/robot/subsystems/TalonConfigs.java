@@ -26,9 +26,9 @@ public class TalonConfigs {
 
             TalonSRXConfiguration config = new TalonSRXConfiguration();
             /******** CURRENT LIMIT (ENABLED BELOW) **********/
-            config.peakCurrentLimit = 15;
-            config.peakCurrentDuration = 10;
-            config.continuousCurrentLimit = 10;
+            config.peakCurrentLimit = 20;
+            config.peakCurrentDuration = 100;
+            config.continuousCurrentLimit = 7;
 
             config.primaryPID.selectedFeedbackSensor = FeedbackDevice.QuadEncoder;
             config.primaryPID.selectedFeedbackCoefficient = 1.0;
@@ -37,11 +37,14 @@ public class TalonConfigs {
             config.forwardLimitSwitchSource = LimitSwitchSource.Deactivated;
             config.reverseLimitSwitchSource = LimitSwitchSource.Deactivated;
             /****************** RAMPING *********************/
-            config.openloopRamp = 1.0;
+            config.openloopRamp = 0.0;
             config.closedloopRamp = 0.0;
             /******************* OUTPUT LIMITS **************/
-            config.peakOutputForward = 0.5;
-            config.peakOutputReverse = -0.5;
+            // config.peakOutputForward = 0.5;
+            // config.peakOutputReverse = -0.5;
+
+            config.peakOutputForward = 1.0;
+            config.peakOutputReverse = -1.0;
 
             config.nominalOutputForward = 0.0;
             config.nominalOutputReverse = 0.0;
@@ -60,8 +63,8 @@ public class TalonConfigs {
             config.reverseSoftLimitThreshold = -100;
             config.reverseSoftLimitEnable = false;
 
-            config.motionCruiseVelocity = 100;
-            config.motionAcceleration = 50;
+            config.motionCruiseVelocity = 300;
+            config.motionAcceleration = 200;
             config.motionCurveStrength = 4;
 
             config.clearPositionOnLimitF = false;
@@ -74,10 +77,10 @@ public class TalonConfigs {
             config.trajectoryInterpolationEnable = true;
 
             //FANCY POSITION
-            config.slot0.kP = 5.0;
+            config.slot0.kP = 1.0;
             config.slot0.kI = 0.0;
             config.slot0.kD = 0.0;
-            config.slot0.kF = 5.0;
+            config.slot0.kF = 1.0;
             config.slot0.integralZone = 10;
             config.slot0.allowableClosedloopError = 10;
             config.slot0.maxIntegralAccumulator = 100;
@@ -99,7 +102,7 @@ public class TalonConfigs {
             TalonUtil.requireOK(talon.configAllSettings(config, 50));
 
             talon.enableCurrentLimit(true);
-            talon.enableVoltageCompensation(true);
+            talon.enableVoltageCompensation(false);
             talon.selectProfileSlot(0, 0);
 
             talon.setInverted(false);
@@ -112,9 +115,9 @@ public class TalonConfigs {
             TalonSRXConfiguration config = new TalonSRXConfiguration();
 
             /******** CURRENT LIMIT (ENABLED BELOW) **********/
-            config.peakCurrentLimit = 40;
-            config.peakCurrentDuration = 1;
-            config.continuousCurrentLimit = 40;
+            // config.peakCurrentLimit = 40;
+            // config.peakCurrentDuration = 1;
+            // config.continuousCurrentLimit = 40;
 
             config.primaryPID.selectedFeedbackSensor = FeedbackDevice.QuadEncoder;
             config.primaryPID.selectedFeedbackCoefficient = 1.0;
@@ -123,7 +126,7 @@ public class TalonConfigs {
             config.forwardLimitSwitchSource = LimitSwitchSource.Deactivated;
             config.reverseLimitSwitchSource = LimitSwitchSource.Deactivated;
             /********** RAMPING ****************/
-            config.openloopRamp = 1.0;
+            config.openloopRamp = 0.0;// 1.0;
             config.closedloopRamp =0.0;// 1.0;
 
 
@@ -147,7 +150,7 @@ public class TalonConfigs {
             config.reverseSoftLimitEnable = false;
 
             config.motionCruiseVelocity = 3000;
-            config.motionAcceleration = 1500;
+            config.motionAcceleration = 6000;
             config.motionCurveStrength = 4;
 
             config.clearPositionOnLimitF = false;
@@ -187,8 +190,8 @@ public class TalonConfigs {
             talon.setSensorPhase(false);
 
             talon.setNeutralMode(NeutralMode.Brake);
-            talon.enableCurrentLimit(true);
-            talon.enableVoltageCompensation(true);
+            talon.enableCurrentLimit(false);
+            talon.enableVoltageCompensation(false);
             talon.selectProfileSlot(0, 0);
         }
 
@@ -196,8 +199,8 @@ public class TalonConfigs {
 
             TalonSRXConfiguration config = new TalonSRXConfiguration();
             /******** CURRENT LIMIT (ENABLED BELOW) **********/
-            config.peakCurrentLimit = 10;
-            config.peakCurrentDuration = 10;
+            config.peakCurrentLimit = 15;
+            config.peakCurrentDuration = 100;
             config.continuousCurrentLimit = 4;
 
             config.primaryPID.selectedFeedbackSensor = FeedbackDevice.QuadEncoder;
@@ -210,9 +213,11 @@ public class TalonConfigs {
             config.openloopRamp = 0.0;
             config.closedloopRamp = 0.0;
             /****** OUTPUT LIMITS **********/
-            config.peakOutputForward = 0.6;
-            config.peakOutputReverse = -0.6;
-
+            // config.peakOutputForward = 0.6;
+            // config.peakOutputReverse = -0.6;
+            
+            config.peakOutputForward = 1.0;
+            config.peakOutputReverse = -1.0;
             config.nominalOutputForward = 0.0;
             config.nominalOutputReverse = 0.0;
 
@@ -229,8 +234,8 @@ public class TalonConfigs {
             config.reverseSoftLimitThreshold = -1000;
             config.reverseSoftLimitEnable = false;
 
-            config.motionCruiseVelocity = 500;
-            config.motionAcceleration = 500;
+            config.motionCruiseVelocity = 1000;
+            config.motionAcceleration = 1000;
             config.motionCurveStrength = 4;
 
             config.clearPositionOnLimitF = false;
@@ -244,9 +249,9 @@ public class TalonConfigs {
 
             // SLOT O: FANCY POSITION
             config.slot0.kP = 0.50;
-            config.slot0.kI = 0.001;
+           // config.slot0.kI = 0.001;
             config.slot0.kD = 0.0;
-            config.slot0.kF = 1.0;
+            config.slot0.kF = 0.50;
             config.slot0.integralZone = 10;
             config.slot0.allowableClosedloopError = 10;
             config.slot0.maxIntegralAccumulator = 100;
@@ -269,8 +274,8 @@ public class TalonConfigs {
             talon.setSensorPhase(true);
 
             talon.setNeutralMode(NeutralMode.Brake);
-            talon.enableCurrentLimit(true);
-            talon.enableVoltageCompensation(true);
+            talon.enableCurrentLimit(false);
+            talon.enableVoltageCompensation(false);
             talon.selectProfileSlot(0, 0);
         }
     }

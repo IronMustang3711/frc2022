@@ -81,8 +81,8 @@ public class HangarCommands {
     CommandBase _armOutNoHooks;
 
     private CommandBase armOutNoHooks() {
-        if (_armOutNoHooks != null)
-            return _armOutNoHooks;
+        // if (_armOutNoHooks != null)
+        //     return _armOutNoHooks;
         var unspoolWinch = new HangarSetpointCommand(hangar.winch, -52000);
         var armUp = new HangarSetpointCommand(hangar.arm, 1200);
         var delayedArmUp = new WaitUntilCommand(() -> unspoolWinch.getMotionProgress() > 0.3).andThen(armUp);
@@ -166,5 +166,31 @@ public class HangarCommands {
         return _armToNextRung = cmd;
 
     }
+
+    CommandBase _armToNextRung2;
+    public CommandBase armToNextRung2() {
+        if (_armToNextRung2 != null) return _armToNextRung2;
+        var unspoolWinch = new HangarSetpointCommand2(hangar.winch, -11000);
+        var armUp = new HangarSetpointCommand2(hangar.arm, 1100);
+        var delayedArmUp = new WaitUntilCommand(() -> unspoolWinch.getMotionProgress() > 0.1).andThen(armUp);
+        var tmp0 = unspoolWinch.alongWith(delayedArmUp);
+        var tmp1 = tmp0.andThen(new HangarSetpointCommand2(hangar.arm, 0.0));
+    
+        var cmd = tmp1.andThen(armOutNoHooks());
+
+
+        cmd.setName("arm to next rung");
+        cmd.addRequirements(hangar);
+        return _armToNextRung2 = cmd;
+
+    }
+
+
+    // private CommandBase _manualControl = null;
+    // public   CommandBase manualControl(){
+    //     if(_manualControl != null) return _manualControl;
+    //     return (_manualControl = new ManualHangarControl(hangar, xbox))
+    // }
+    
 
 }
