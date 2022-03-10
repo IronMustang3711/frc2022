@@ -78,12 +78,12 @@ public class TalonConfigs {
 
             //FANCY POSITION
             config.slot0.kP = 1.0;
-            config.slot0.kI = 0.0;
+            config.slot0.kI = 0.01;
             config.slot0.kD = 0.0;
             config.slot0.kF = 1.0;
-            config.slot0.integralZone = 10;
+            config.slot0.integralZone = 200;
             config.slot0.allowableClosedloopError = 10;
-            config.slot0.maxIntegralAccumulator = 100;
+            config.slot0.maxIntegralAccumulator = 1000;
             config.slot0.closedLoopPeakOutput = 1.0;
             config.slot0.closedLoopPeriod = 1;
 

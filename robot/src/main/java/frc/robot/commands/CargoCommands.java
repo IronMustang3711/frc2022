@@ -10,6 +10,11 @@ import frc.robot.subsystems.CargoSubsystem;
 
 /** Add your docs here. */
 public class CargoCommands {
+    static final double INTAKE_AUTOFEED_SPEED = 0.5;
+    static final double INTAKE_SHOOT_SPEED = INTAKE_AUTOFEED_SPEED;
+
+    static final double FEEDWORKS_AUTOFEED_SPEED = INTAKE_AUTOFEED_SPEED;
+    static final double FEEDWORKS_SHOOT_SPEED = FEEDWORKS_AUTOFEED_SPEED;
 
     static class Autofeed extends CommandBase {
         CargoSubsystem cargo;
@@ -28,14 +33,14 @@ public class CargoCommands {
                 cargo.feedworks.neutralOutput();
                 cargo.intake.neutralOutput();
             } else if (lowerBlocked & !upperBlocked) {
-                cargo.intake.set(0.5);
-                cargo.feedworks.set(0.5);
+                cargo.intake.set(INTAKE_AUTOFEED_SPEED);
+                cargo.feedworks.set(FEEDWORKS_AUTOFEED_SPEED);
             } else if (!lowerBlocked & upperBlocked) {
                 cargo.feedworks.neutralOutput();
-                cargo.intake.set(0.5);
+                cargo.intake.set(INTAKE_AUTOFEED_SPEED);
             } else if (!lowerBlocked & !upperBlocked) {
-                cargo.intake.set(0.5);
-                cargo.feedworks.set(0.5);
+                cargo.intake.set(INTAKE_AUTOFEED_SPEED);
+                cargo.feedworks.set(INTAKE_AUTOFEED_SPEED);
             }
 
         }
@@ -62,7 +67,7 @@ public class CargoCommands {
             {
                 addRequirements(cargo);
             }
-            long startTime = System.currentTimeMillis();
+            long startTime = 0;
             long elapsed = 0;
 
             @Override
@@ -77,10 +82,10 @@ public class CargoCommands {
                 elapsed = System.currentTimeMillis() - startTime;
 
                 if (elapsed > 1500)
-                    cargo.feedworks.set(0.5);
+                    cargo.feedworks.set(FEEDWORKS_SHOOT_SPEED);
 
                 if (elapsed > 2000)
-                    cargo.intake.set(0.5);
+                    cargo.intake.set(INTAKE_SHOOT_SPEED);
 
             }
 

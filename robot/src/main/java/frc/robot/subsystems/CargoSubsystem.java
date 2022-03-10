@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class CargoSubsystem extends RobotSubsystem {
- public WPI_TalonSRX feedworks = new WPI_TalonSRX(6);
+  public WPI_TalonSRX feedworks = new WPI_TalonSRX(6);
   public WPI_TalonSRX intake = new WPI_TalonSRX(2);
   public WPI_TalonSRX shooter = new WPI_TalonSRX(27);
 
@@ -36,43 +36,46 @@ public class CargoSubsystem extends RobotSubsystem {
     shooter.configVoltageCompSaturation(10);
     shooter.enableVoltageCompensation(true);
 
-    SupplyCurrentLimitConfiguration currentLimit = new SupplyCurrentLimitConfiguration(true,40,40,1);
+    SupplyCurrentLimitConfiguration currentLimit = new SupplyCurrentLimitConfiguration(true, 40, 40, 1);
     shooter.configSupplyCurrentLimit(currentLimit, 50);
     shooter.enableCurrentLimit(true);
 
-  
     addChild("upperPhotoeye", upperPhotoeye);
     addChild("lowerPhotoeye", lowerPhotoeye);
- 
-    
 
-     SmartDashboard.putData( upperPhotoeye);
-     SmartDashboard.putData(lowerPhotoeye);
+    SmartDashboard.putData(upperPhotoeye);
+    SmartDashboard.putData(lowerPhotoeye);
 
-   // tab.add(upperPhotoeye);//.withWidget(BuiltInWidgets.kBooleanBox);
-   // tab.add(lowerPhotoeye);//.withWidget(BuiltInWidgets.kBooleanBox);
-    tab.addBoolean("lowerPhotoeye", ()->lowerPhotoeye.get());
-    tab.addBoolean("upperPhotoeye",()->upperPhotoeye.get());
+    // tab.add(upperPhotoeye);//.withWidget(BuiltInWidgets.kBooleanBox);
+    // tab.add(lowerPhotoeye);//.withWidget(BuiltInWidgets.kBooleanBox);
+    tab.addBoolean("lowerPhotoeye", () -> lowerPhotoeye.get());
+    tab.addBoolean("upperPhotoeye", () -> upperPhotoeye.get());
 
     tab.addString("current command",
-    ()->  getCurrentCommand() == null ? "None" : getCurrentCommand().toString()
-    );
+        () -> getCurrentCommand() == null ? "None" : getCurrentCommand().toString());
 
-     tab.addNumber("shooter velocity", shooter::getSelectedSensorVelocity);
-     tab.addNumber("bus voltage", shooter::getBusVoltage);
-    
-    }
+    tab.addNumber("shooter velocity", shooter::getSelectedSensorVelocity);
+    tab.addNumber("shooter position", shooter::getSelectedSensorPosition);
+    tab.addNumber("bus voltage", shooter::getBusVoltage);
+    tab.addNumber("shooter RPM", this::getShooterRPM);
 
-  public boolean isLowerPhotoeyeBlocked(){
+  }
+
+  public boolean isLowerPhotoeyeBlocked() {
     return lowerPhotoeye.get();
   }
 
   @Override
   public void periodic() {
-    
+
   }
 
-public boolean isUpperPhotoeyeBlocked() {
-	return upperPhotoeye.get();
-}
+  public double getShooterRPM() {
+    double sensorUnitsPerMinute = 10*60* shooter.getSelectedSensorVelocity();
+    return sensorUnitsPerMinute / 4092.0;
+  }
+
+  public boolean isUpperPhotoeyeBlocked() {
+    return upperPhotoeye.get();
+  }
 }
