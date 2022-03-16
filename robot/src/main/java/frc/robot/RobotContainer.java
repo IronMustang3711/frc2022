@@ -26,6 +26,7 @@ import frc.robot.subsystems.ChassisSubsystem;
 import frc.robot.subsystems.HangarSubsystem;
 import frc.robot.subsystems.RobotSubsystem;
 import frc.robot.util.TalonFaultsReporter;
+import frc.robot.commands.DriveToBall;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -99,6 +100,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
     new JoystickButton(stick, 1).toggleWhenPressed(CargoCommands.shoot(cargo));
     new JoystickButton(stick, 2).toggleWhenPressed(CargoCommands.autofeed(cargo));
+    new JoystickButton(stick, 11).whileHeld(new DriveToBall(chassis,1));  // blue ball
+    new JoystickButton(stick, 12).whileHeld(new DriveToBall(chassis,0));  // red ball
 
     var hangarCommands = hangar.commands;
 
