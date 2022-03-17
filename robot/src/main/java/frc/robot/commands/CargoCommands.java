@@ -13,7 +13,7 @@ public class CargoCommands {
     static final double INTAKE_AUTOFEED_SPEED = 0.5;
     static final double INTAKE_SHOOT_SPEED = INTAKE_AUTOFEED_SPEED;
 
-    static final double FEEDWORKS_AUTOFEED_SPEED = INTAKE_AUTOFEED_SPEED;
+    static final double FEEDWORKS_AUTOFEED_SPEED = 0.5;
     static final double FEEDWORKS_SHOOT_SPEED = FEEDWORKS_AUTOFEED_SPEED;
 
     static class Autofeed extends CommandBase {

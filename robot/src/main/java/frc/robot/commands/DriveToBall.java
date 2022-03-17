@@ -4,40 +4,53 @@
 
 package frc.robot.commands;
 
+import org.photonvision.PhotonCamera;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ChassisSubsystem;
-import edu.wpi.first.wpilibj.Timer;  
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.photonvision.PhotonCamera;
 
 public class DriveToBall extends CommandBase {
 
-  PhotonCamera camera = new PhotonCamera("rpiUSB");  // %r3
+  PhotonCamera camera;
+
+  private boolean oppositeTeam;
+  public DriveToBall(PhotonCamera camera, ChassisSubsystem chassis, boolean oppositeTeam) {
+    this.camera = camera;
+    this.chassis = chassis;
+    this.oppositeTeam = oppositeTeam;
+  
+    addRequirements(chassis);
+  }
+
   private double driveSpeed;
 
 final ChassisSubsystem chassis;
-final int m_pipeline;
 
-  public DriveToBall(ChassisSubsystem chassis, int pipelineIndex) {
-
-  this.chassis = chassis;
-    addRequirements(chassis);
-  m_pipeline = pipelineIndex;
-}
+ 
 
 
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    if(oppositeTeam){
+      var idx = camera.getPipelineIndex(); 
+      if(idx == 0 ) idx =1;
+      else idx = 0;
+      camera.setPipelineIndex(idx);
+    }
+
     driveSpeed = 0;
-    camera.setPipelineIndex(m_pipeline);
+
+
+    
+    //camera.setPipelineIndex(m_pipeline);
   }
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     var result = camera.getLatestResult();
-    SmartDashboard.putBoolean("targets",result.hasTargets());
     double turnSpeed = 0;
 
     if (result.hasTargets() && (result.getBestTarget().getArea() > 1) )
@@ -49,11 +62,13 @@ final int m_pipeline;
       driveSpeed = (pitch + 17) / 34; // range from 0 to 1
 
       driveSpeed *= 0.7;
-      if (driveSpeed  < 0.5)
-        driveSpeed = 0.5;
-      turnSpeed = yaw * 0.1;  // yaw of 3.3 is full turn
+      double maxFwd = 0.6;
+      if (driveSpeed  < maxFwd)
+        driveSpeed = maxFwd;
+
+      turnSpeed = yaw * 0.05;  // yaw of 3.3 is full turn
       turnSpeed += -0.1;  // bunny turn correction
-      double maxTurn = 0.4;
+      double maxTurn = 0.7;
       if (turnSpeed > maxTurn)
         turnSpeed = maxTurn;
       else if  (turnSpeed < -maxTurn)
@@ -65,7 +80,14 @@ final int m_pipeline;
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    if(oppositeTeam){
+      var idx = camera.getPipelineIndex(); 
+      if(idx == 0 ) idx =1;
+      else idx = 0;
+      camera.setPipelineIndex(idx);
+    }
+  }
 
   // Returns true when the command should end.
   @Override

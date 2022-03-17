@@ -4,9 +4,13 @@
 
 package frc.robot;
 
+import java.sql.Driver;
 import java.util.List;
 
+import org.photonvision.PhotonCamera;
+
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
@@ -52,7 +56,7 @@ public class RobotContainer {
   ManualHangarControl manual_hangar_control = new ManualHangarControl(hangar, xbox);
 
   PowerDistribution pdp = new PowerDistribution();
-
+  PhotonCamera camera = new PhotonCamera("rpiUSB");  // %r3
   // HangarTelemetry hangarTelemetry = new HangarTelemetry(hangar);
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -79,9 +83,22 @@ public class RobotContainer {
 
     ShuffleboardCommandsTab.create(this);
     setupCamera();
+    setupCameraPipeline();
+  }
+
+  void setupCameraPipeline(){
+    var alliance =  DriverStation.getAlliance();
+    if(DriverStation.Alliance.Blue.equals(alliance)){
+      camera.setPipelineIndex(1);
+    }
+    else if(DriverStation.Alliance.Red.equals(alliance)){
+      camera.setPipelineIndex(0);
+    }
   }
 
   void setupCamera() {
+
+
     try {
       CameraServer.startAutomaticCapture();
     } catch (Exception e) {
@@ -100,8 +117,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
     new JoystickButton(stick, 1).toggleWhenPressed(CargoCommands.shoot(cargo));
     new JoystickButton(stick, 2).toggleWhenPressed(CargoCommands.autofeed(cargo));
-    new JoystickButton(stick, 11).whileHeld(new DriveToBall(chassis,1));  // blue ball
-    new JoystickButton(stick, 12).whileHeld(new DriveToBall(chassis,0));  // red ball
+    new JoystickButton(stick, 11).whileHeld(new DriveToBall(camera, chassis, false));  //team balls
+    new JoystickButton(stick, 12).whileHeld(new DriveToBall(camera, chassis, true));  // opposing team balls
 
     var hangarCommands = hangar.commands;
 
@@ -138,5 +155,11 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     return CargoCommands.shoot(cargo).andThen(new SimpleAutoDrive(chassis, 0.5, 3500));
+  }
+
+  public void periodic() {
+   var result = camera.getLatestResult();
+    SmartDashboard.putBoolean("targets",result.hasTargets());
+
   }
 }

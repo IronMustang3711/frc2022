@@ -19,6 +19,8 @@ public class ChassisSubsystem extends RobotSubsystem {
   final WPI_TalonSRX rightRear = new WPI_TalonSRX(12);
 
   final DifferentialDrive drive;
+  double rotate = 0.0;
+  double fwd = 0.0;
 
   public ChassisSubsystem() {
 
@@ -45,16 +47,21 @@ public class ChassisSubsystem extends RobotSubsystem {
     rightRear.setSensorPhase(true);
 
     drive = new DifferentialDrive(leftFront,rightFront);
+    addChild("drivetrain", drive);
+    tab.add(drive);
     drive.setMaxOutput(1.0);
 
     leftRear.follow(leftFront);
     rightRear.follow(rightFront);
+
+    tab.addNumber("rotate",()->this.rotate);
+    tab.addNumber("fwd", ()->this.fwd);
   }
 
   public void drive(double fwd,double rotate){
-
+    this.rotate = rotate;
+    this.fwd = fwd;
     drive.arcadeDrive(fwd, rotate);
-
   }
   @Override
   public void periodic() {
