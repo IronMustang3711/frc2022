@@ -115,9 +115,9 @@ public class TalonConfigs {
             TalonSRXConfiguration config = new TalonSRXConfiguration();
 
             /******** CURRENT LIMIT (ENABLED BELOW) **********/
-            // config.peakCurrentLimit = 40;
-            // config.peakCurrentDuration = 1;
-            // config.continuousCurrentLimit = 40;
+            config.peakCurrentLimit = 50;
+            config.peakCurrentDuration = 100;
+            config.continuousCurrentLimit = 40;
 
             config.primaryPID.selectedFeedbackSensor = FeedbackDevice.QuadEncoder;
             config.primaryPID.selectedFeedbackCoefficient = 1.0;
@@ -190,7 +190,7 @@ public class TalonConfigs {
             talon.setSensorPhase(false);
 
             talon.setNeutralMode(NeutralMode.Brake);
-            talon.enableCurrentLimit(false);
+            talon.enableCurrentLimit(true);
             talon.enableVoltageCompensation(false);
             talon.selectProfileSlot(0, 0);
         }

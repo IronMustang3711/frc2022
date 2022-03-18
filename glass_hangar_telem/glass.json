@@ -1,0 +1,408 @@
+{
+  "NetworkTables": {
+    "CameraPublisher": {
+      "logitech": {
+        "open": true
+      }
+    },
+    "LiveWindow": {
+      "HangarSubsystem": {
+        "arm(4)": {
+          "open": false
+        },
+        "open": false
+      }
+    },
+    "Shuffleboard": {
+      "CargoSubsystem": {
+        "open": false
+      },
+      "HangarSubsystem": {
+        "open": true,
+        "winch(10)": {
+          "open": true
+        }
+      },
+      "open": true
+    },
+    "SmartDashboard": {
+      "open": false
+    },
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/LiveWindow/CargoSubsystem/feedworks(6)": "Motor Controller",
+      "/LiveWindow/CargoSubsystem/intake(2)": "Motor Controller",
+      "/LiveWindow/CargoSubsystem/lowerPhotoeye": "Digital Input",
+      "/LiveWindow/CargoSubsystem/shooter(27)": "Motor Controller",
+      "/LiveWindow/CargoSubsystem/upperPhotoeye": "Digital Input",
+      "/LiveWindow/HangarSubsystem/arm(4)": "Motor Controller",
+      "/LiveWindow/HangarSubsystem/hook(15)": "Motor Controller",
+      "/LiveWindow/HangarSubsystem/winch(10)": "Motor Controller",
+      "/LiveWindow/Ungrouped/DifferentialDrive[1]": "DifferentialDrive",
+      "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
+      "/LiveWindow/Ungrouped/Talon SRX [12]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon SRX [1]": "Motor Controller",
+      "/Shuffleboard/CargoSubsystem/CargoSubsystem": "Subsystem",
+      "/Shuffleboard/ChassisSubsystem/ChassisSubsystem": "Subsystem",
+      "/Shuffleboard/Commands/CargoSubsystem/ClearFaults": "Command",
+      "/Shuffleboard/Commands/CargoSubsystem/StopMotors": "Command",
+      "/Shuffleboard/Commands/CargoSubsystem/reset encoders(CargoSubsystem)": "Command",
+      "/Shuffleboard/Commands/ChassisSubsystem/ClearFaults": "Command",
+      "/Shuffleboard/Commands/ChassisSubsystem/StopMotors": "Command",
+      "/Shuffleboard/Commands/ChassisSubsystem/reset encoders(ChassisSubsystem)": "Command",
+      "/Shuffleboard/Commands/HangarSubsystem/ClearFaults": "Command",
+      "/Shuffleboard/Commands/HangarSubsystem/StopMotors": "Command",
+      "/Shuffleboard/Commands/HangarSubsystem/reset encoders(HangarSubsystem)": "Command",
+      "/Shuffleboard/Commands/ShuffleboardCommandsTab$JoystickErrorMessageSilencer": "Command",
+      "/Shuffleboard/HangarSubsystem/HangarSubsystem": "Subsystem",
+      "/Shuffleboard/HangarSubsystem/Zero encoders": "Command",
+      "/Shuffleboard/HangarSubsystem/arm control": "Command",
+      "/Shuffleboard/HangarSubsystem/command sequences/arm to next rung": "Command",
+      "/Shuffleboard/HangarSubsystem/command sequences/hooks in": "Command",
+      "/Shuffleboard/HangarSubsystem/command sequences/hooks out": "Command",
+      "/Shuffleboard/HangarSubsystem/command sequences/initial position": "Command",
+      "/Shuffleboard/HangarSubsystem/command sequences/reach up": "Command",
+      "/Shuffleboard/HangarSubsystem/command sequences/winch up robot": "Command",
+      "/Shuffleboard/HangarSubsystem/hook control": "Command",
+      "/Shuffleboard/HangarSubsystem/winch cc": "Command",
+      "/Shuffleboard/HangarSubsystem/winch control": "Command",
+      "/SmartDashboard/auto drive": "Command",
+      "/SmartDashboard/drive command": "Command",
+      "/SmartDashboard/lowerPhotoeye": "Digital Input",
+      "/SmartDashboard/upperPhotoeye": "Digital Input"
+    }
+  },
+  "NetworkTables Settings": {
+    "dsClient": false,
+    "mode": "Client",
+    "serverTeam": "3711",
+    "visible": false
+  },
+  "Plots": {
+    "Plot <0>": {
+      "plots": [
+        {
+          "axis": [
+            {
+              "autoFit": true
+            }
+          ],
+          "height": 212,
+          "series": [
+            {
+              "color": [
+                0.2980392277240753,
+                0.44705885648727417,
+                0.6901960968971252,
+                1.0
+              ],
+              "id": "NT:/Shuffleboard/HangarSubsystem/winch(10)/velocity"
+            }
+          ]
+        },
+        {
+          "axis": [
+            {
+              "autoFit": true
+            }
+          ],
+          "height": 212,
+          "series": [
+            {
+              "color": [
+                0.2980392277240753,
+                0.44705885648727417,
+                0.6901960968971252,
+                1.0
+              ],
+              "id": "NT:/Shuffleboard/HangarSubsystem/arm(4)/velocity"
+            }
+          ]
+        },
+        {
+          "axis": [
+            {
+              "autoFit": true
+            }
+          ],
+          "height": 212,
+          "series": [
+            {
+              "color": [
+                0.2980392277240753,
+                0.44705885648727417,
+                0.6901960968971252,
+                1.0
+              ],
+              "id": "NT:/Shuffleboard/HangarSubsystem/hook(15)/velocity"
+            }
+          ]
+        }
+      ],
+      "window": {
+        "name": "encoder speeds",
+        "visible": false
+      }
+    },
+    "Plot <1>": {
+      "plots": [
+        {
+          "height": 90,
+          "series": [
+            {
+              "color": [
+                0.2980392277240753,
+                0.44705885648727417,
+                0.6901960968971252,
+                1.0
+              ],
+              "id": "NT:/Shuffleboard/HangarSubsystem/hook(15)/position"
+            },
+            {
+              "color": [
+                0.8666667342185974,
+                0.5176470875740051,
+                0.32156863808631897,
+                1.0
+              ],
+              "id": "NT:/Shuffleboard/HangarSubsystem/hook(15)/trajPosition"
+            }
+          ]
+        },
+        {
+          "height": 90,
+          "series": [
+            {
+              "color": [
+                0.2980392277240753,
+                0.44705885648727417,
+                0.6901960968971252,
+                1.0
+              ],
+              "id": "NT:/Shuffleboard/HangarSubsystem/hook(15)/velocity"
+            },
+            {
+              "color": [
+                0.8666667342185974,
+                0.5176470875740051,
+                0.32156863808631897,
+                1.0
+              ],
+              "id": "NT:/Shuffleboard/HangarSubsystem/hook(15)/trajVelocity"
+            }
+          ]
+        },
+        {
+          "height": 90,
+          "series": [
+            {
+              "color": [
+                0.2980392277240753,
+                0.44705885648727417,
+                0.6901960968971252,
+                1.0
+              ],
+              "id": "NT:/Shuffleboard/HangarSubsystem/hook(15)/error"
+            },
+            {
+              "color": [
+                0.8666667342185974,
+                0.5176470875740051,
+                0.32156863808631897,
+                1.0
+              ],
+              "id": "NT:/Shuffleboard/HangarSubsystem/hook(15)/errorDeriv"
+            }
+          ]
+        }
+      ],
+      "window": {
+        "name": "trajectory_stuff (hook)",
+        "visible": false
+      }
+    },
+    "Plot <2>": {
+      "plots": [
+        {
+          "axis": [
+            {
+              "autoFit": true
+            }
+          ],
+          "height": 2,
+          "series": [
+            {
+              "color": [
+                0.2980392277240753,
+                0.44705885648727417,
+                0.6901960968971252,
+                1.0
+              ],
+              "id": "NT:/Shuffleboard/HangarSubsystem/winch(10)/trajPosition"
+            },
+            {
+              "color": [
+                0.8666667342185974,
+                0.5176470875740051,
+                0.32156863808631897,
+                1.0
+              ],
+              "id": "NT:/Shuffleboard/HangarSubsystem/winch(10)/position"
+            }
+          ]
+        },
+        {
+          "axis": [
+            {
+              "autoFit": true
+            }
+          ],
+          "height": 2,
+          "series": [
+            {
+              "color": [
+                0.2980392277240753,
+                0.44705885648727417,
+                0.6901960968971252,
+                1.0
+              ],
+              "id": "NT:/Shuffleboard/HangarSubsystem/winch(10)/trajVelocity"
+            },
+            {
+              "color": [
+                0.8666667342185974,
+                0.5176470875740051,
+                0.32156863808631897,
+                1.0
+              ],
+              "id": "NT:/Shuffleboard/HangarSubsystem/winch(10)/velocity"
+            }
+          ]
+        },
+        {
+          "axis": [
+            {
+              "autoFit": true
+            }
+          ],
+          "height": 2,
+          "series": [
+            {
+              "color": [
+                0.2980392277240753,
+                0.44705885648727417,
+                0.6901960968971252,
+                1.0
+              ],
+              "id": "NT:/Shuffleboard/HangarSubsystem/winch(10)/error"
+            },
+            {
+              "color": [
+                0.8666667342185974,
+                0.5176470875740051,
+                0.32156863808631897,
+                1.0
+              ],
+              "id": "NT:/Shuffleboard/HangarSubsystem/winch(10)/errorDeriv"
+            }
+          ]
+        }
+      ],
+      "window": {
+        "name": "trajectory stuff(winch)"
+      }
+    },
+    "Plot <3>": {
+      "plots": [
+        {
+          "axis": [
+            {
+              "autoFit": true
+            }
+          ],
+          "height": 194,
+          "series": [
+            {
+              "color": [
+                0.2980392277240753,
+                0.44705885648727417,
+                0.6901960968971252,
+                1.0
+              ],
+              "id": "NT:/Shuffleboard/HangarSubsystem/arm(4)/position"
+            },
+            {
+              "color": [
+                0.8666667342185974,
+                0.5176470875740051,
+                0.32156863808631897,
+                1.0
+              ],
+              "id": "NT:/Shuffleboard/HangarSubsystem/arm(4)/trajPosition"
+            }
+          ]
+        },
+        {
+          "axis": [
+            {
+              "autoFit": true
+            }
+          ],
+          "height": 194,
+          "series": [
+            {
+              "color": [
+                0.2980392277240753,
+                0.44705885648727417,
+                0.6901960968971252,
+                1.0
+              ],
+              "id": "NT:/Shuffleboard/HangarSubsystem/arm(4)/velocity"
+            },
+            {
+              "color": [
+                0.8666667342185974,
+                0.5176470875740051,
+                0.32156863808631897,
+                1.0
+              ],
+              "id": "NT:/Shuffleboard/HangarSubsystem/arm(4)/trajVelocity"
+            }
+          ]
+        },
+        {
+          "axis": [
+            {
+              "autoFit": true
+            }
+          ],
+          "height": 194,
+          "series": [
+            {
+              "color": [
+                0.2980392277240753,
+                0.44705885648727417,
+                0.6901960968971252,
+                1.0
+              ],
+              "id": "NT:/Shuffleboard/HangarSubsystem/arm(4)/error"
+            },
+            {
+              "color": [
+                0.8666667342185974,
+                0.5176470875740051,
+                0.32156863808631897,
+                1.0
+              ],
+              "id": "NT:/Shuffleboard/HangarSubsystem/arm(4)/errorDeriv"
+            }
+          ]
+        }
+      ],
+      "window": {
+        "name": "Trajectory stuff (arm)",
+        "visible": false
+      }
+    }
+  }
+}

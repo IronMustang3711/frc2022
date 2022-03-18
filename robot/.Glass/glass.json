@@ -83,6 +83,9 @@
     "mode": "Client",
     "serverTeam": "10.37.11.2"
   },
+  "NetworkTables View": {
+    "visible": false
+  },
   "Plots": {
     "Plot <0>": {
       "plots": [
@@ -92,7 +95,7 @@
               "autoFit": true
             }
           ],
-          "height": 208,
+          "height": 289,
           "series": [
             {
               "color": [
@@ -105,7 +108,10 @@
             }
           ]
         }
-      ]
+      ],
+      "window": {
+        "visible": false
+      }
     },
     "Plot <1>": {
       "plots": [
@@ -115,7 +121,7 @@
               "autoFit": true
             }
           ],
-          "height": 332,
+          "height": 185,
           "series": [
             {
               "color": [
