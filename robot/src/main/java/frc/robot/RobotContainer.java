@@ -114,7 +114,7 @@ public class RobotContainer {
 
     @Override
     protected double getForwardSpeed(double pitch) {
-        return stick.getY();
+        return -stick.getY();
     }
 
   }
