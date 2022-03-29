@@ -106,6 +106,18 @@ public class RobotContainer {
     }
   }
 
+  class MyDriveToBall extends DriveToBall {
+
+    public MyDriveToBall(PhotonCamera camera, ChassisSubsystem chassis, boolean oppositeTeam) {
+      super(camera, chassis, oppositeTeam);
+    }
+
+    @Override
+    protected double getForwardSpeed(double pitch) {
+        return -stick.getY();
+    }
+
+  }
   /**
    * Use this method to define your button->command mappings. Buttons can be
    * created by
@@ -117,8 +129,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
     new JoystickButton(stick, 1).toggleWhenPressed(CargoCommands.shoot(cargo));
     new JoystickButton(stick, 2).toggleWhenPressed(CargoCommands.autofeed(cargo));
-    new JoystickButton(stick, 11).whileHeld(new DriveToBall(camera, chassis, false));  //team balls
-    new JoystickButton(stick, 12).whileHeld(new DriveToBall(camera, chassis, true));  // opposing team balls
+    new JoystickButton(stick, 11).whileHeld(new MyDriveToBall(camera, chassis, false));  //team balls
+    new JoystickButton(stick, 12).whileHeld(new MyDriveToBall(camera, chassis, true));  // opposing team balls
 
     var hangarCommands = hangar.commands;
 
@@ -147,7 +159,7 @@ public class RobotContainer {
     };
 
     new JoystickButton(xbox, XboxController.Button.kA.value).whenPressed(winchToggle);
-
+    
     new JoystickButton(xbox, XboxController.Button.kB.value).whenPressed(hangarCommands.armToNextRung2());
     new JoystickButton(xbox, XboxController.Button.kStart.value).whenPressed(hangarCommands.toHome());
     new JoystickButton(xbox, XboxController.Button.kBack.value).toggleWhenPressed(manual_hangar_control);
