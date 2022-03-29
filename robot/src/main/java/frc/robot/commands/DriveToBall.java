@@ -47,7 +47,18 @@ final ChassisSubsystem chassis;
     
     //camera.setPipelineIndex(m_pipeline);
   }
-  // Called every time the scheduler runs while the command is scheduled.
+
+  protected double getForwardSpeed(double pitch){
+    
+    double Speed = (pitch + 17) / 34; // range from 0 to 1
+
+    Speed *= 0.7;
+    double maxFwd = 0.6;
+    if (Speed  < maxFwd)
+      Speed = maxFwd;
+    return Speed;
+
+  }  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     var result = camera.getLatestResult();
@@ -59,13 +70,8 @@ final ChassisSubsystem chassis;
       double yaw = result.getBestTarget().getYaw();
       SmartDashboard.putNumber("yaw",yaw);
       SmartDashboard.putNumber("pitch",pitch);
-      driveSpeed = (pitch + 17) / 34; // range from 0 to 1
-
-      driveSpeed *= 0.7;
-      double maxFwd = 0.6;
-      if (driveSpeed  < maxFwd)
-        driveSpeed = maxFwd;
-
+      driveSpeed = getForwardSpeed(pitch);
+      
       turnSpeed = yaw * 0.05;  // yaw of 3.3 is full turn
       turnSpeed += -0.1;  // bunny turn correction
       double maxTurn = 0.7;
