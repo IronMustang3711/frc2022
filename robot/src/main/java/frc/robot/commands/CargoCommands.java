@@ -10,7 +10,7 @@ import frc.robot.subsystems.CargoSubsystem;
 
 /** Add your docs here. */
 public class CargoCommands {
-    static final double INTAKE_AUTOFEED_SPEED = 0.5;
+    static final double INTAKE_AUTOFEED_SPEED = 1.0;
     static final double INTAKE_SHOOT_SPEED = INTAKE_AUTOFEED_SPEED;
 
     static final double FEEDWORKS_AUTOFEED_SPEED = 0.5;
