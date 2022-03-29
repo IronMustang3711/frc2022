@@ -64,12 +64,17 @@ final ChassisSubsystem chassis;
     var result = camera.getLatestResult();
     double turnSpeed = 0;
 
-    if (result.hasTargets() && (result.getBestTarget().getArea() > 1) )
+    double pitch = 0;
+    double yaw = 0;
+
+    if (result != null && result.hasTargets() && (result.getBestTarget().getArea() > 1) )
     {
-      double pitch = result.getBestTarget().getPitch();
-      double yaw = result.getBestTarget().getYaw();
+       pitch = result.getBestTarget().getPitch();
+       yaw = result.getBestTarget().getYaw();
       SmartDashboard.putNumber("yaw",yaw);
       SmartDashboard.putNumber("pitch",pitch);
+    }
+
       driveSpeed = getForwardSpeed(pitch);
       
       turnSpeed = yaw * 0.05;  // yaw of 3.3 is full turn
@@ -79,7 +84,7 @@ final ChassisSubsystem chassis;
         turnSpeed = maxTurn;
       else if  (turnSpeed < -maxTurn)
         turnSpeed = -maxTurn;
-    }
+    
    
     chassis.drive(-driveSpeed, -turnSpeed);  // normal speed
   }
